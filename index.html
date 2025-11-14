@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Web Cuộc Thi - Đang hoàn thiện</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tải Font Awesome cho biểu tượng -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-8 md:p-12 rounded-lg shadow-xl max-w-2xl w-full text-center transform transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
+        
+        <!-- Tiêu đề cuộc thi -->
+        <h1 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 mb-8">
+            Trang web Cuộc thi "THIẾT KẾ SẢN PHẨM & THÔNG ĐIỆP TUYÊN TRUYỀN PHÒNG, CHỐNG CÁC TỆ NẠN XÃ HỘI"
+        </h1>
+        
+        <!-- Bắt đầu: Đếm ngược thời gian -->
+        <div class="my-6">
+            <p class="text-lg font-semibold text-gray-700 mb-3">Thời gian nộp bài còn lại:</p>
+            <div id="countdown" class="flex justify-center gap-2 sm:gap-4 text-center">
+                <div class="bg-gradient-to-b from-gray-50 to-gray-100 p-3 sm:p-4 rounded-lg shadow-inner w-20 sm:w-24">
+                    <span id="days" class="text-3xl sm:text-4xl font-bold text-purple-600">0</span>
+                    <span class="text-xs text-gray-500 block uppercase">Ngày</span>
+                </div>
+                <div class="bg-gradient-to-b from-gray-50 to-gray-100 p-3 sm:p-4 rounded-lg shadow-inner w-20 sm:w-24">
+                    <span id="hours" class="text-3xl sm:text-4xl font-bold text-purple-600">0</span>
+                    <span class="text-xs text-gray-500 block uppercase">Giờ</span>
+                </div>
+                <div class="bg-gradient-to-b from-gray-50 to-gray-100 p-3 sm:p-4 rounded-lg shadow-inner w-20 sm:w-24">
+                    <span id="minutes" class="text-3xl sm:text-4xl font-bold text-purple-600">0</span>
+                    <span class="text-xs text-gray-500 block uppercase">Phút</span>
+                </div>
+                <div class="bg-gradient-to-b from-gray-50 to-gray-100 p-3 sm:p-4 rounded-lg shadow-inner w-20 sm:w-24">
+                    <span id="seconds" class="text-3xl sm:text-4xl font-bold text-purple-600">0</span>
+                    <span class="text-xs text-gray-500 block uppercase">Giây</span>
+                </div>
+            </div>
+            <p id="countdown-expired" class="text-xl font-bold text-red-600 hidden mt-4">Đã hết hạn nộp bài!</p>
+            
+            <!-- Nút Thêm vào Lịch -->
+            <div class="mt-4">
+                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Hạn+chót+nộp+bài%3A+Thiết+kế+sản+phẩm+Phòng+chống+tệ+nạn+xã+hội&dates=20251116T130000Z/20251116T130000Z&details=Đừng+quên+nộp+bài+dự+thi+của+bạn+qua+email%3A+doanhoi%40uel.edu.vn+trước+20%3A00+ngày+16%2F11%2F2025.+Chúc+bạn+may+mắn%21&location=Trường+Đại+học+Kinh+tế+-+Luật%2C+ĐHQG-HCM" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="text-sm text-blue-600 hover:text-blue-800 transition duration-300 group">
+                    <i class="far fa-calendar-alt mr-1 transition-transform duration-300 group-hover:scale-110"></i>
+                    Thêm vào Google Calendar
+                </a>
+            </div>
+        </div>
+        <!-- Kết thúc: Đếm ngược thời gian -->
+
+        <!-- Thông báo đang hoàn thiện -->
+        <div class="my-8 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg text-left flex items-center gap-4">
+            <i class="fas fa-tools text-2xl animate-spin-slow"></i>
+            <div>
+                <p class="font-bold">Đang hoàn thiện!</p>
+                <p>Trang web đang trong quá trình xây dựng. Cảm ơn bạn đã ghé thăm!</p>
+            </div>
+        </div>
+        
+        <!-- Nút liên hệ -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <!-- Nút Facebook -->
+            <a href="https://fb.com/lamquocminh18" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                <i class="fab fa-facebook-f mr-2"></i>
+                Liên hệ Facebook
+            </a>
+            
+            <!-- Nút Số điện thoại -->
+            <a href="tel:0899012608"
+               class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                <i class="fas fa-phone-alt mr-2"></i>
+                Gọi: 0899.012.608
+            </a>
+        </div>
+
+        <!-- Ngăn cách -->
+        <hr class="my-8 border-gray-200">
+
+        <!-- Thông tin người thực hiện -->
+        <div class="text-sm text-gray-500 text-center px-4">
+            <p class="font-semibold mb-2">Thực hiện bởi:</p>
+            <p><strong>SV. Lâm Quốc Minh</strong> - Khoa Luật</p>
+            <p><strong>SV. Nguyễn Nhật My</strong> - Khoa Kinh tế đối ngoại</p>
+            <p class="mt-1 italic">Trường Đại học Kinh tế - Luật, ĐHQG-HCM</p>
+        </div>
+
+    </div>
+
+    <!-- JavaScript cho đồng hồ đếm ngược -->
+    <script>
+        // Đặt ngày giờ kết thúc (20:00 ngày 16 tháng 11 năm 2025)
+        const countdownDate = new Date("2025-11-16T20:00:00").getTime();
+
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const daysElement = document.getElementById("days");
+            const hoursElement = document.getElementById("hours");
+            const minutesElement = document.getElementById("minutes");
+            const secondsElement = document.getElementById("seconds");
+            const countdownElement = document.getElementById("countdown");
+            const expiredElement = document.getElementById("countdown-expired");
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                if (countdownElement) countdownElement.classList.add("hidden");
+                if (expiredElement) expiredElement.classList.remove("hidden");
+            } else {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (daysElement) daysElement.innerHTML = days < 10 ? '0' + days : days;
+                if (hoursElement) hoursElement.innerHTML = hours < 10 ? '0' + hours : hours;
+                if (minutesElement) minutesElement.innerHTML = minutes < 10 ? '0' + minutes : minutes;
+                if (secondsElement) secondsElement.innerHTML = seconds < 10 ? '0' + seconds : seconds;
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
