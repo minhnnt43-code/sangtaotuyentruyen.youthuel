@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (msg.includes('stress') || msg.includes('bế tắc')) {
             return 'Khi cảm thấy stress, hãy tìm đến thể thao, âm nhạc hoặc chia sẻ với người bạn tin tưởng. Đừng dùng chất kích thích, nó chỉ làm mọi thứ tồi tệ hơn. Bạn có thể gọi đến tổng đài 111 để được tư vấn miễn phí.';
         } else {
-            return 'Tôi chưa hiểu rõ câu hỏi của bạn. Bạn có thể hỏi về "tác hại", "cách từ chối" hoặc "stress" nhé.';
+            return 'Hiện tại tính năng ChatBot tự động liên quan đang được cập nhật, cảm ơn bạn đã quan tâm, chúc bạn một ngày vui vẻ';
         }
     }
 
@@ -205,3 +205,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
