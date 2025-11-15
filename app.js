@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainHeader = document.getElementById('main-header');
     const mainContent = document.getElementById('main-content');
     const mainFooter = document.getElementById('main-footer');
-    const floatingContact = document.getElementById('floating-contact'); // Lấy nút gọi
+    const floatingContact = document.getElementById('floating-contact');
 
     // Hàm đếm số mượt mà
     function animateCountUp(elementId, endValue, duration) {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Kích hoạt đếm số
-    animateCountUp('stat-number-1', 99221200, 2000);
+    animateCountUp('stat-number-1', 9900, 2000);
     animateCountUp('stat-number-2', 12500, 2200);
     animateCountUp('stat-number-3', 29000, 2500);
 
@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (mainHeader) mainHeader.classList.remove('initially-hidden');
                 if (mainContent) mainContent.classList.remove('initially-hidden');
                 if (mainFooter) mainFooter.classList.remove('initially-hidden');
-                // Hiển thị nút gọi nổi cùng lúc
                 if (floatingContact) floatingContact.classList.remove('initially-hidden');
             }, 800); // Khớp với transition trong CSS
         });
@@ -60,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuBtn.classList.toggle('is-open');
         });
 
-        // Tự động đóng menu khi người dùng click vào một link
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('is-open')) {
@@ -98,30 +96,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Thanh trượt so sánh hình ảnh
-    const sliderContainer = document.querySelector('.before-after-slider');
-    if (sliderContainer) {
-        const imageAfter = sliderContainer.querySelector('img:last-of-type');
+    // ----- CẬP NHẬT: XỬ LÝ NHIỀU THANH TRƯỢT SO SÁNH HÌNH ẢNH -----
+    const allSliders = document.querySelectorAll('.before-after-slider');
+
+    allSliders.forEach(slider => {
+        const imageAfter = slider.querySelector('img:last-of-type');
+        if (!imageAfter) return;
+
         const handle = document.createElement('div');
         handle.className = 'slider-handle';
-        sliderContainer.appendChild(handle);
+        slider.appendChild(handle);
+
         let isDragging = false;
         
         const moveSlider = (clientX) => {
-            const rect = sliderContainer.getBoundingClientRect();
+            const rect = slider.getBoundingClientRect();
             let x = Math.max(0, Math.min(clientX - rect.left, rect.width));
             const percent = (x / rect.width) * 100;
             handle.style.left = `${percent}%`;
             imageAfter.style.clipPath = `polygon(${percent}% 0, 100% 0, 100% 100%, ${percent}% 100%)`;
         };
         
-        sliderContainer.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
-        sliderContainer.addEventListener('touchstart', (e) => { isDragging = true; e.preventDefault(); });
-        window.addEventListener('mouseup', () => { isDragging = false; });
-        window.addEventListener('touchend', () => { isDragging = false; });
-        window.addEventListener('mousemove', (e) => { if (isDragging) moveSlider(e.clientX); });
-        window.addEventListener('touchmove', (e) => { if (isDragging) moveSlider(e.touches[0].clientX); });
-    }
+        const startDrag = (e) => {
+            isDragging = true;
+            // Ngăn các hành vi mặc định như chọn văn bản
+            e.preventDefault();
+        };
+
+        const stopDrag = () => {
+            isDragging = false;
+        };
+
+        const onDrag = (e) => {
+            if (!isDragging) return;
+            // Xác định vị trí clientX từ mouse event hoặc touch event
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            moveSlider(clientX);
+        };
+
+        // Sự kiện cho máy tính
+        slider.addEventListener('mousedown', startDrag);
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('mousemove', onDrag);
+
+        // Sự kiện cho thiết bị cảm ứng
+        slider.addEventListener('touchstart', startDrag);
+        window.addEventListener('touchend', stopDrag);
+        window.addEventListener('touchmove', onDrag);
+    });
+
 
     /* =================================================================== */
     /* PHẦN 3: LOGIC CHATBOT                                               */
