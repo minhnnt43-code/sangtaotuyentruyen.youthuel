@@ -1,9 +1,9 @@
 /* =================================================================== */
-/*             TRANG TUYÊN TRUYỀN: PHIÊN BẢN CSS FINAL v12            */
+/*             TRANG TUYÊN TRUYỀN: PHIÊN BẢN CSS FINAL v13            */
 /* =================================================================== */
 /* 
  * Tác giả: Trợ lý AI
- * Phiên bản: v12 (Hoàn thiện đường dẫn & Nút Gọi cuối cùng)
+ * Phiên bản: v13 (Tương thích với 3 thanh trượt so sánh)
 */
 
 /* ================================================ */
@@ -61,7 +61,7 @@ body {
     background-color: #d9534f;
     background-image: 
         linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
-        url('hinhanh/splash-bg.jpg'); /* Đã sửa đường dẫn */
+        url('hinhanh/splash-bg.jpg');
     background-size: cover;
     background-position: center center;
 }
@@ -137,6 +137,7 @@ body {
 .tab-btn.active { color: var(--primary-color); }
 .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background: var(--primary-color); }
 .tab-panel { display: none; } .tab-panel.active { display: block; animation: fadeIn 0.5s; }
+.tab-panel h3 { margin-bottom: 10px; }
 .tab-panel ul { list-style-position: inside; padding: 0 10px; }
 .before-after-slider { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 20px 0; overflow: hidden; border-radius: var(--border-radius); box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: col-resize; }
 .before-after-slider img { position: absolute; top:0;left:0; width: 100%; height: 100%; object-fit: cover; }
@@ -221,11 +222,11 @@ body {
 #floating-contact {
     position: fixed;
     bottom: 30px;
-    right: 30px; /* Vị trí góc dưới bên phải */
+    right: 30px;
     z-index: 9999;
     display: flex;
     align-items: center;
-    flex-direction: row-reverse; /* Đảo thứ tự: nút trước, tooltip sau */
+    flex-direction: row-reverse;
     gap: 15px;
     animation: slideUpFade 1s ease-out forwards;
 }
@@ -269,7 +270,7 @@ body {
     max-width: 280px;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(20px); /* Hiệu ứng trượt từ phải */
+    transform: translateX(20px); 
     transition: all 0.3s ease;
     border: 1px solid #eee;
 }
@@ -296,7 +297,7 @@ body {
         flex-direction: column-reverse; 
         right: 20px; 
         bottom: 20px; 
-        align-items: flex-end; /* Căn lề phải cho tooltip */
+        align-items: flex-end;
         gap: 10px; 
     }
     .contact-btn { width: 60px; height: 60px; }
