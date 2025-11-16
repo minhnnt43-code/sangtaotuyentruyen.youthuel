@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
     
+    <!-- Link CSS của SwiperJS (Thêm vào để tạo thư viện ảnh) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <!-- CSS: Chứa khai báo cho font UTM Avo và toàn bộ giao diện -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -100,16 +103,27 @@
                         <div id="tab-self" class="tab-panel active">
                             <h3>TRỰC QUAN HÓA SỰ TÀN PHÁ</h3>
                             <p>Hãy kéo thanh trượt để chứng kiến sự thay đổi kinh hoàng mà ma túy và tác hại của rượu, bia gây ra với cơ thể và cuộc sống.</p>
-                            <div class="before-after-slider">
-                                <img src="hinhanh/minhoa1.jpg" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhhoa2.jfif" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhoa3.jpg" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhhoa4.jpg" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhhoa6.webp" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhhoa7.jfif" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhhoa7.png" alt="Hình minh hoạ">
-                                <img src="hinhanh/minhhoa8.webp" alt="Hình minh hoạ">
+                            
+                            <!-- BẮT ĐẦU CẤU TRÚC SWIPERJS SLIDER -->
+                            <div class="swiper my-image-slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide"><img src="hinhanh/minhoa1.jpg" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhhoa2.jfif" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhoa3.jpg" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhoa4.jpg" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhoa6.webp" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhoa7.jfif" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhhoa7.png" alt="Hình minh hoạ về tác hại"></div>
+                                    <div class="swiper-slide"><img src="hinhanh/minhoa8.webp" alt="Hình minh hoạ về tác hại"></div>
+                                </div>
+                                <!-- Nút điều hướng (Mũi tên) -->
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <!-- Thanh cuộn -->
+                                <div class="swiper-scrollbar"></div>
                             </div>
+                            <!-- KẾT THÚC CẤU TRÚC SWIPERJS SLIDER -->
+
                              <ul>
                                 <li><strong>Hệ hô hấp (Do thuốc lá hoặc thuốc lá điện tử):</strong> Gây ung thư phổi, tắc nghẽn phổi mãn tính (COPD), và suy hô hấp.</li>
                                 <li><strong>Hệ tiêu hoá (Do rượu, bia):</strong> Gây xơ gan, ung thư gan, và viêm loét dạ dày chảy máu.</li>
@@ -237,19 +251,13 @@
             <p class="highlight-phone">0899.012.608</p>
         </div>
         <a href="tel:0899012608" class="contact-btn" aria-label="Gọi điện liên hệ">
+            <!-- ĐÃ SỬA LẠI CLASS CHO ĐÚNG -->
             <img src="hinhanh/iconphone.png" alt="Gọi điện" class="phone-icon-img">
         </a>
     </div>
 
+    <!-- Link JS của SwiperJS (Thêm vào để khởi tạo thư viện ảnh) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
