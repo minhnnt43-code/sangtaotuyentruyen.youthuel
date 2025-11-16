@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Kích hoạt đếm số
-    animateCountUp('stat-number-1', 8000000, 6000000);
-    animateCountUp('stat-number-2', 3000000, 2600000);
-    animateCountUp('stat-number-3', 300000000, 29000000);
+    animateCountUp('stat-number-1', 8000000, 3000);
+    animateCountUp('stat-number-2', 3000000, 2800);
+    animateCountUp('stat-number-3', 300000000, 2600);
 
     // Sự kiện click nút "Đối mặt sự thật"
     if (enterButton) {
@@ -177,3 +177,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
