@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (mainContent) mainContent.classList.remove('initially-hidden');
                 if (mainFooter) mainFooter.classList.remove('initially-hidden');
                 if (floatingContact) floatingContact.classList.remove('initially-hidden');
-            }, 800); // Khớp với transition trong CSS
+            }, 800);
         });
     }
 
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ----- CẬP NHẬT: XỬ LÝ NHIỀU THANH TRƯỢT SO SÁNH HÌNH ẢNH -----
+    // ----- XỬ LÝ THANH TRƯỢT SO SÁNH HÌNH ẢNH -----
     const allSliders = document.querySelectorAll('.before-after-slider');
 
     allSliders.forEach(slider => {
@@ -117,29 +117,18 @@ document.addEventListener('DOMContentLoaded', () => {
             imageAfter.style.clipPath = `polygon(${percent}% 0, 100% 0, 100% 100%, ${percent}% 100%)`;
         };
         
-        const startDrag = (e) => {
-            isDragging = true;
-            // Ngăn các hành vi mặc định như chọn văn bản
-            e.preventDefault();
-        };
-
-        const stopDrag = () => {
-            isDragging = false;
-        };
+        const startDrag = (e) => { isDragging = true; e.preventDefault(); };
+        const stopDrag = () => { isDragging = false; };
 
         const onDrag = (e) => {
             if (!isDragging) return;
-            // Xác định vị trí clientX từ mouse event hoặc touch event
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             moveSlider(clientX);
         };
 
-        // Sự kiện cho máy tính
         slider.addEventListener('mousedown', startDrag);
         window.addEventListener('mouseup', stopDrag);
         window.addEventListener('mousemove', onDrag);
-
-        // Sự kiện cho thiết bị cảm ứng
         slider.addEventListener('touchstart', startDrag);
         window.addEventListener('touchend', stopDrag);
         window.addEventListener('touchmove', onDrag);
@@ -163,16 +152,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getBotResponse(userText) {
-        const msg = userText.toLowerCase();
-        if (msg.includes('tác hại')) {
-            return 'Ma túy hủy hoại não bộ, tim mạch, gia đình và dập tắt tương lai của bạn. Tuyệt đối đừng thử dù chỉ một lần!';
-        } else if (msg.includes('từ chối')) {
-            return 'Để từ chối, hãy dứt khoát: <b>"Không, cảm ơn. Tớ không dùng thứ này."</b> và bình tĩnh rời đi nếu cần thiết.';
-        } else if (msg.includes('stress') || msg.includes('bế tắc')) {
-            return 'Khi cảm thấy stress, hãy tìm đến thể thao, âm nhạc hoặc chia sẻ với người bạn tin tưởng. Đừng dùng chất kích thích, nó chỉ làm mọi thứ tồi tệ hơn. Bạn có thể gọi đến tổng đài 111 để được tư vấn miễn phí.';
-        } else {
-            return 'Hiện tại tính năng ChatBot tự động liên quan đang được cập nhật, cảm ơn bạn đã quan tâm, chúc bạn một ngày vui vẻ';
-        }
+        const msg = userText.toLowerCase().trim();
+        
+        if (msg === 'tác hại của ma túy') { return 'Ma túy hủy hoại não bộ, tim mạch, gia đình và dập tắt tương lai của bạn. Tuyệt đối đừng thử dù chỉ một lần!'; }
+        if (msg === 'làm sao để từ chối?') { return 'Để từ chối, hãy dứt khoát: <b>"Không, cảm ơn. Tớ không dùng thứ này."</b> và bình tĩnh rời đi nếu cần thiết.'; }
+        if (msg === 'tôi đang cảm thấy stress') { return 'Khi cảm thấy stress, hãy tìm đến thể thao, âm nhạc hoặc chia sẻ với người bạn tin tưởng. Đừng dùng chất kích thích, nó chỉ làm mọi thứ tồi tệ hơn. Bạn có thể gọi đến tổng đài 111 để được tư vấn miễn phí.'; }
+        if (msg === 'tác hại của rượu bia') { return 'Rượu bia tuy hợp pháp nhưng lạm dụng sẽ gây hại gan, thận, và làm mất kiểm soát hành vi. Hãy uống có chừng mực để bảo vệ sức khỏe và an toàn cho bản thân cũng như những người xung quanh.'; }
+        
+        if (msg.includes('ma túy') || msg.includes('tác hại')) { return 'Ma túy hủy hoại não bộ, tim mạch, gia đình và dập tắt tương lai của bạn. Tuyệt đối đừng thử dù chỉ một lần!'; } 
+        else if (msg.includes('từ chối')) { return 'Để từ chối, hãy dứt khoát: <b>"Không, cảm ơn. Tớ không dùng thứ này."</b> và bình tĩnh rời đi nếu cần thiết.'; } 
+        else if (msg.includes('stress') || msg.includes('bế tắc') || msg.includes('buồn')) { return 'Khi cảm thấy stress, hãy tìm đến thể thao, âm nhạc hoặc chia sẻ với người bạn tin tưởng. Đừng dùng chất kích thích, nó chỉ làm mọi thứ tồi tệ hơn. Bạn có thể gọi đến tổng đài 111 để được tư vấn miễn phí.'; } 
+        else if (msg.includes('rượu') || msg.includes('bia')) { return 'Rượu bia tuy hợp pháp nhưng lạm dụng sẽ gây hại gan, thận, và làm mất kiểm soát hành vi. Hãy uống có chừng mực để bảo vệ sức khỏe và an toàn cho bản thân cũng như những người xung quanh.'; } 
+        else { return 'Cảm ơn bạn đã quan tâm. Hiện tại, các câu trả lời tự động đang được cập nhật thêm. Nếu bạn cần hỗ trợ khẩn cấp, hãy gọi tổng đài 111 nhé.'; }
     }
 
     function handleSend() {
@@ -205,4 +196,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
