@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateCountUp(elementId, endValue, duration) {
         const element = document.getElementById(elementId);
         if (!element) return;
-        let startValue = 0; const stepTime = 10;
+        let startValue = 0; const stepTime = 1;
         const totalSteps = duration / stepTime; const increment = endValue / totalSteps;
         let currentStep = 0;
         const timer = setInterval(() => {
@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Kích hoạt đếm số
-    animateCountUp('stat-number-1', 8000000, 200000);
-    animateCountUp('stat-number-2', 3000000, 220000);
-    animateCountUp('stat-number-3', 300000000, 25000000);
+    animateCountUp('stat-number-1', 8000000, 6000000);
+    animateCountUp('stat-number-2', 3000000, 2600000);
+    animateCountUp('stat-number-3', 300000000, 29000000);
 
     // Sự kiện click nút "Đối mặt sự thật"
     if (enterButton) {
@@ -96,42 +96,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ----- XỬ LÝ THANH TRƯỢT SO SÁNH HÌNH ẢNH -----
-    const allSliders = document.querySelectorAll('.before-after-slider');
+    // ----- KHỞI TẠO THƯ VIỆN ẢNH SWIPERJS (THAY THẾ CODE CŨ) -----
+    const swiper = new Swiper('.my-image-slider', {
+        // Các thông số tùy chọn
+        loop: true, // Cho phép lặp lại vô tận
+        grabCursor: true, // Biến con trỏ thành hình bàn tay khi hover
 
-    allSliders.forEach(slider => {
-        const imageAfter = slider.querySelector('img:last-of-type');
-        if (!imageAfter) return;
+        // Thanh cuộn (Scrollbar)
+        scrollbar: {
+          el: '.swiper-scrollbar',
+          draggable: true, // Cho phép kéo thanh cuộn
+        },
 
-        const handle = document.createElement('div');
-        handle.className = 'slider-handle';
-        slider.appendChild(handle);
-
-        let isDragging = false;
-        
-        const moveSlider = (clientX) => {
-            const rect = slider.getBoundingClientRect();
-            let x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-            const percent = (x / rect.width) * 100;
-            handle.style.left = `${percent}%`;
-            imageAfter.style.clipPath = `polygon(${percent}% 0, 100% 0, 100% 100%, ${percent}% 100%)`;
-        };
-        
-        const startDrag = (e) => { isDragging = true; e.preventDefault(); };
-        const stopDrag = () => { isDragging = false; };
-
-        const onDrag = (e) => {
-            if (!isDragging) return;
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            moveSlider(clientX);
-        };
-
-        slider.addEventListener('mousedown', startDrag);
-        window.addEventListener('mouseup', stopDrag);
-        window.addEventListener('mousemove', onDrag);
-        slider.addEventListener('touchstart', startDrag);
-        window.addEventListener('touchend', stopDrag);
-        window.addEventListener('touchmove', onDrag);
+        // Nút điều hướng (Navigation arrows)
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
     });
 
 
@@ -196,4 +177,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
