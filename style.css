@@ -133,10 +133,50 @@ body {
 .tab-panel { display: none; } .tab-panel.active { display: block; animation: fadeIn 0.5s; }
 .tab-panel h3 { margin-bottom: 10px; }
 .tab-panel ul { list-style-position: inside; padding: 0 10px; }
-.before-after-slider { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 20px 0; overflow: hidden; border-radius: var(--border-radius); box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: col-resize; }
-.before-after-slider img { position: absolute; top:0;left:0; width: 100%; height: 100%; object-fit: cover; }
-.before-after-slider img:last-of-type { clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); }
-.slider-handle { position: absolute; z-index: 10; top: 0; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: rgba(255,255,255,0.8); }
+
+/* ===== BẮT ĐẦU CSS CHO SWIPERJS SLIDER (THAY THẾ CODE CŨ) ===== */
+.my-image-slider {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 20px auto 30px; /* Thêm khoảng cách dưới cho đẹp hơn */
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Bắt buộc để bo góc hoạt động */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.my-image-slider .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee; /* Màu nền chờ trong lúc ảnh tải */
+}
+.my-image-slider .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Hiển thị ảnh đẹp nhất trong khung */
+}
+/* Tùy chỉnh nút mũi tên */
+.my-image-slider .swiper-button-next,
+.my-image-slider .swiper-button-prev {
+    color: var(--primary-color);
+}
+.my-image-slider .swiper-button-next::after,
+.my-image-slider .swiper-button-prev::after {
+    font-size: 1.8rem; /* Kích thước icon mũi tên */
+    font-weight: 800;
+}
+/* Tùy chỉnh thanh cuộn (Scrollbar) */
+.my-image-slider .swiper-scrollbar {
+    background: rgba(0, 0, 0, 0.1); /* Màu nền của thanh cuộn */
+    height: 6px;
+    bottom: 10px;
+}
+.my-image-slider .swiper-scrollbar-drag {
+    background: var(--primary-color); /* Màu của thanh kéo */
+    border-radius: 3px;
+}
+/* ===== KẾT THÚC CSS CHO SWIPERJS SLIDER ===== */
+
 .video-container { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 20px 0; overflow: hidden; border-radius: var(--border-radius); box-shadow: 0 5px 15px rgba(0,0,0,0.1); background-color: #000; }
 .video-container video { width: 100%; height: 100%; object-fit: cover; }
 #section-solution { background-image: var(--gradient); }
@@ -219,4 +259,3 @@ body {
 .video-source { text-align: right; font-size: 0.8rem; font-style: italic; color: #999; margin-top: -10px; margin-bottom: 20px; padding-right: 5px; }
 #main-footer a { color: var(--text-light); text-decoration: underline; transition: opacity 0.3s; }
 #main-footer a:hover { opacity: 0.8; }
-
