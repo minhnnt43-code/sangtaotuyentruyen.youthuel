@@ -1,371 +1,344 @@
 /* =================================================================== */
-/*  APP.JS - BỘ NÃO XỬ LÝ (FINAL VERSION - FULL TÍNH NĂNG)             */
+/*  STYLE.CSS - PHIÊN BẢN FINAL (FIXED WHEEL TEXT)                     */
 /* =================================================================== */
 
-// 1. IMPORT FIREBASE
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, deleteDoc, doc, updateDoc, increment, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+/* 1. CẤU HÌNH CHUNG */
+:root {
+    --primary: #D9534F;       /* Đỏ */
+    --secondary: #F0AD4E;     /* Vàng */
+    --dark: #222;             /* Đen */
+    --light: #ffffff;         /* Trắng tinh */
+    --gray: #f4f4f4;          /* Xám nền */
+    
+    --font-head: 'Montserrat', sans-serif;
+    --font-body: 'UTM Avo', 'Roboto', sans-serif;
+}
 
-// 2. CẤU HÌNH FIREBASE (Mã của bạn)
-const firebaseConfig = {
-  apiKey: "AIzaSyBC4VW7gGSYBzfkjP-MrUv3w0zvQGb_BX4",
-  authDomain: "trangwebduthi1.firebaseapp.com",
-  databaseURL: "https://trangwebduthi1-default-rtdb.firebaseio.com",
-  projectId: "trangwebduthi1",
-  storageBucket: "trangwebduthi1.firebasestorage.app",
-  messagingSenderId: "86135080286",
-  appId: "1:86135080286:web:3bbe4e80edb7a4074b3bcf",
-  measurementId: "G-XNXFV62NTS"
-};
+@font-face { font-family: 'UTM Avo'; src: local('Arial'); }
 
-// Khởi tạo
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-// Đăng nhập ẩn danh
-signInAnonymously(auth).catch((error) => console.error("Lỗi Auth:", error));
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: #333;
+    background: var(--gray);
+    overflow-x: hidden;
+}
 
-// Biến trạng thái Admin
-let isAdmin = false;
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.initially-hidden, .hidden { display: none !important; }
+.section-pad { padding: 80px 0; }
+
+h1, h2, h3, h4, h5 { font-family: var(--font-head); font-weight: 700; text-transform: uppercase; }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 15px; color: var(--primary); position: relative; }
+.section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--secondary); margin: 10px auto 0; }
+.serif-accent { font-family: 'Playfair Display', serif; font-style: italic; color: var(--secondary); }
+.section-desc { text-align: center; max-width: 800px; margin: 0 auto 50px; color: #666; }
 
 /* =================================================================== */
-/*  BẮT ĐẦU LOGIC CHÍNH                                                */
+/* 2. MÀN HÌNH CHỜ (ANIMATION TRƯỢT DỌC - KHÔNG ZOOM)                  */
 /* =================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+#splash-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: #000; z-index: 9999; 
+    overflow: hidden;
+    display: flex; justify-content: center; align-items: center; text-align: center;
+}
 
-    // --- A. GIAO DIỆN CƠ BẢN (SPLASH, MENU, THẺ, TAB) ---
+.splash-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 140%;
+    background: url('hinhanh/anhbiapage.webp') center top/cover no-repeat;
+    opacity: 0.5; z-index: 0;
+    animation: vertical-slide 20s linear infinite alternate;
+}
 
-    const splashScreen = document.getElementById('splash-screen');
-    const enterButton = document.getElementById('enter-button');
-    const mainHeader = document.getElementById('main-header');
-    const mainContent = document.getElementById('main-content');
-    const mainFooter = document.getElementById('main-footer');
-    const floatingContact = document.getElementById('floating-contact');
+@keyframes vertical-slide {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20%); }
+}
 
-    // 1. Đếm số Intro
-    function animateCountUp(elementId, endValue, duration) {
-        const element = document.getElementById(elementId);
-        if (!element) return;
-        let start = 0; const steps = 50; const increment = endValue / steps;
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= endValue) { start = endValue; clearInterval(timer); }
-            element.textContent = Math.floor(start).toLocaleString('vi-VN') + "+";
-        }, duration / steps);
-    }
-    animateCountUp('stat-number-1', 8000000, 2000);
-    animateCountUp('stat-number-2', 3000000, 2000);
-    animateCountUp('stat-number-3', 300000000, 2000);
+.splash-content { position: relative; z-index: 2; padding: 20px; color: #fff; }
+.splash-content h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+.splash-content h2 { font-weight: 400; font-size: 1.1rem; color: #ddd; margin-bottom: 40px; }
 
-    // 2. Vào trang chính
-    if (enterButton) {
-        enterButton.addEventListener('click', () => {
-            splashScreen.style.opacity = '0';
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-                if(mainHeader) mainHeader.classList.remove('initially-hidden');
-                if(mainContent) mainContent.classList.remove('initially-hidden');
-                if(mainFooter) mainFooter.classList.remove('initially-hidden');
-                if(floatingContact) floatingContact.classList.remove('initially-hidden');
-                initVisitorCounter(); // Bắt đầu đếm truy cập thật
-            }, 800);
-        });
-    }
+.stats-counter-wrapper { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+.stat-box .big-number { font-family: var(--font-head); font-size: 3.5rem; color: var(--secondary); font-weight: 800; display: block; }
+.stat-box p { font-size: 0.8rem; opacity: 0.9; letter-spacing: 1px; }
 
-    // 3. Menu Mobile
-    const menuBtn = document.getElementById('mobile-menu-toggle');
-    const navLinks = document.getElementById('main-nav-links');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => navLinks.classList.toggle('is-open'));
-        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('is-open')));
-    }
+.btn-enter {
+    padding: 15px 40px; background: #fff; color: #000; border: none;
+    font-weight: 700; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
+    font-family: var(--font-head); border-radius: 5px;
+}
+.btn-enter:hover { background: var(--primary); color: #fff; }
 
-    // 4. Lật thẻ
-    document.querySelectorAll('.flip-card').forEach(card => {
-        card.addEventListener('click', () => card.classList.toggle('is-flipped'));
-    });
+/* =================================================================== */
+/* 3. HEADER                                                           */
+/* =================================================================== */
+#main-header {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(255,255,255,0.98); border-bottom: 1px solid #eee;
+    padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; color: #000; text-transform: uppercase; letter-spacing: 1px; border: 2px solid #000; padding: 5px 10px; }
+.highlight { color: var(--primary); }
 
-    // 5. Tab Tác hại
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panes = document.querySelectorAll('.tab-pane');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            panes.forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            document.getElementById(tab.dataset.tab).classList.add('active');
-        });
-    });
+.nav-links { list-style: none; display: flex; gap: 20px; }
+.nav-links a { text-decoration: none; color: #333; font-weight: 700; font-size: 0.85rem; transition: 0.3s; }
+.nav-links a:hover { color: var(--primary); }
+.menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-    // 6. Slider Ảnh
-    if (typeof Swiper !== 'undefined') {
-        new Swiper('.my-image-slider', {
-            loop: true, grabCursor: true,
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
-        });
-    }
+/* =================================================================== */
+/* 4. NHẬN DIỆN (THẺ LẬT - NỀN TRẮNG CHỮ ĐEN)                          */
+/* =================================================================== */
+.bg-light { background: #fff; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
-    // --- B. BỘ ĐẾM TRUY CẬP & LIVE USER ---
-    
-    // Đếm tổng truy cập (Firebase)
-    async function initVisitorCounter() {
-        const countEl = document.getElementById('visitor-count');
-        if (!countEl) return;
-        const docRef = doc(db, "site_stats", "visitors");
-        try { await updateDoc(docRef, { count: increment(1) }); } catch (e) { await setDoc(docRef, { count: 1 }); }
-        onSnapshot(docRef, (docSnap) => {
-            if (docSnap.exists()) countEl.innerHTML = `Lượt truy cập: <strong>${docSnap.data().count.toLocaleString('vi-VN')}</strong>`;
-        });
-    }
+.flip-card { background: transparent; height: 420px; perspective: 1000px; cursor: pointer; }
+.flip-card-inner {
+    position: relative; width: 100%; height: 100%; text-align: center;
+    transition: transform 0.6s; transform-style: preserve-3d;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+.flip-card:hover .flip-card-inner, .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
 
-    // Đang truy cập (Giả lập cho đẹp)
-    const onlineCountEl = document.getElementById('online-count');
-    if (onlineCountEl) {
-        let count = Math.floor(Math.random() * 15) + 5;
-        setInterval(() => {
-            count += Math.floor(Math.random() * 3) - 1;
-            if(count < 3) count = 3;
-            onlineCountEl.textContent = count;
-        }, 4000);
-    }
+.flip-card-front, .flip-card-back {
+    position: absolute; width: 100%; height: 100%;
+    -webkit-backface-visibility: hidden; backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 25px; border-radius: 10px;
+}
 
-    // --- C. TÍNH TIỀN ---
-    const btnCalc = document.getElementById('btn-calculate');
-    if (btnCalc) {
-        btnCalc.addEventListener('click', () => {
-            const price = parseInt(document.getElementById('calc-type').value);
-            const freq = parseInt(document.getElementById('calc-freq').value) || 0;
-            if (freq <= 0) { alert("Nhập số lượng hợp lệ!"); return; }
-            const yearCost = price * freq * 52;
-            document.getElementById('res-1year').textContent = yearCost.toLocaleString('vi-VN') + " đ";
-            document.getElementById('res-10year').textContent = (yearCost * 10).toLocaleString('vi-VN') + " đ";
-            document.getElementById('calc-result-box').classList.remove('hidden');
-        });
-    }
+/* MẶT TRƯỚC */
+.flip-card-front { background: #fff; border: 1px solid #eee; color: #333; }
+.flip-card-front .icon { font-size: 4.5rem; margin-bottom: 20px; }
+.flip-card-front h4 { font-size: 1.5rem; margin-bottom: 10px; color: #222; }
+.hint { font-size: 0.9rem; color: #888; font-style: italic; margin-top: 15px; }
 
-    // --- D. VÒNG XOAY SỐ PHẬN ---
-    const btnSpin = document.getElementById('btn-spin');
-    const wheel = document.getElementById('wheel');
-    const wheelResult = document.getElementById('wheel-result');
-    const outcomeText = document.getElementById('wheel-outcome');
-    if (btnSpin) {
-        btnSpin.addEventListener('click', () => {
-            const deg = Math.floor(3000 + Math.random() * 2000); 
-            wheel.style.transform = `rotate(${deg}deg)`;
-            btnSpin.disabled = true;
-            setTimeout(() => {
-                wheelResult.classList.remove('hidden');
-                const outcomes = ["Hối Hận"];
-                outcomeText.textContent = outcomes[Math.floor(Math.random() * outcomes.length)] + "!";
-                btnSpin.disabled = false;
-            }, 4000);
-        });
-    }
+/* MẶT SAU */
+.flip-card-back { transform: rotateY(180deg); color: #fff; align-items: flex-start; text-align: left; }
+.flip-card-back h5 { font-size: 1.3rem; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 10px; width: 100%; margin-bottom: 15px; }
+.flip-card-back p { font-size: 1rem; margin-bottom: 10px; line-height: 1.5; }
+.legal { background: rgba(0,0,0,0.2); padding: 15px; width: 100%; margin-top: auto; font-weight: bold; font-size: 0.9rem; border-left: 4px solid #fff; }
 
-    // --- E. GÓP Ý (TÊN CUTE & FIREBASE) ---
-    const btnSendFeedback = document.getElementById('btn-send-feedback');
-    const txtFeedbackName = document.getElementById('feedback-name');
-    const txtFeedbackContent = document.getElementById('feedback-text');
-    const feedbackListDiv = document.getElementById('feedback-list-container');
+.bg-red { background: var(--primary); }
+.bg-yellow { background: var(--secondary); color: #222 !important; } 
+.bg-dark { background: #2c3e50; }
 
-    const cuteNames = [
-        "Thỏ Con Tò Mò 🐰", "Mèo Béo Ham Học 🐱", "Sóc Nâu Năng Động 🐿️", 
-        "Gấu Trúc Hiền Lành 🐼", "Cáo Nhỏ Lanh Lợi 🦊", "Người Hùng Ẩn Danh 🦸", 
-        "Bạn Học Dễ Thương 😊", "Thám Tử Lừng Danh 🕵️", "Cà Rốt Nhỏ 🥕", 
-        "Bánh Bao Chiều 🥟", "Trà Sữa Trân Châu 🧋", "Mầm Non Tương Lai 🌱", 
-        "Siêu Nhân Gao ⚡", "Vịt Bầu Cute 🦆", "Cá Heo Xanh 🐬", "Dâu Tây Ngọt 🍓",
-        "Mây Trắng Bay ☁️", "Nắng Vàng Ấm Áp ☀️", "Ngôi Sao Hy Vọng ⭐",
-        "Mọt Sách Đáng Yêu 📚", "Phi Hành Gia 🚀", "Gấu Bông Mềm Mại 🧸", 
-        "Bắp Rang Bơ 🍿", "Xoài Lắc 🥭", "Mèo Mướp 🐈", "Cún Con 🐶", 
-        "Rùa Chậm Chạp 🐢", "Ong Chăm Chỉ 🐝", "Kiến Thợ 🐜", "Đại Bàng 🦅",
-        "Sư Tử Dũng Mãnh 🦁", "Khủng Long Tí Hon 🦖", "Ninja Rùa 🐢", 
-        "Doraemon 🔔", "Pikachu ⚡", "Nobita Hậu Đậu 👓", "Shizuka Xinh Đẹp 🎀",
-        "Conan Thông Minh 👓", "Luffy Mũ Rơm 👒", "Naruto 🔥", "Goku Mạnh Mẽ 👊", 
-        "Spider-Man 🕷️", "Iron Man 🤖", "Captain America 🛡️", "Hulk Khổng Lồ 🟢",
-        "Black Panther 🐆", "Doctor Strange 🧙‍♂️", "Thor Thần Sấm 🔨"
-    ];
+/* =================================================================== */
+/* 5. SỐ LIỆU (FLEXBOX 3-2)                                            */
+/* =================================================================== */
+.bg-dark { background: #1a1a1a; color: #fff; }
+.stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
 
-    if (btnSendFeedback) {
-        btnSendFeedback.addEventListener('click', async () => {
-            const content = txtFeedbackContent.value.trim();
-            let name = txtFeedbackName.value.trim();
+.stat-card {
+    flex: 0 0 30%; /* 3 ô hàng trên */
+    background: rgba(255,255,255,0.05); border: 1px solid #444;
+    padding: 40px 20px; text-align: center; transition: 0.3s;
+}
+.stat-card:hover { transform: translateY(-5px); border-color: var(--secondary); }
+.stat-val { font-family: var(--font-head); font-size: 3.5rem; font-weight: 800; color: var(--secondary); display: block; }
+.stat-card p { color: #ccc; font-size: 0.95rem; margin-top: 10px; }
+.stat-card.highlight { border-color: var(--primary); }
 
-            if (content.length < 5) { alert("Hãy viết dài hơn một chút nhé!"); return; }
-            // Nếu không nhập tên -> Random tên cute
-            if (!name) name = cuteNames[Math.floor(Math.random() * cuteNames.length)];
+/* =================================================================== */
+/* 6. TÁC HẠI (40-60)                                                  */
+/* =================================================================== */
+.tabs-wrapper { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+.tab-btn {
+    background: #fff; border: 1px solid #ddd; padding: 12px 30px;
+    font-family: var(--font-head); font-weight: 700; color: #888;
+    cursor: pointer; transition: 0.3s;
+}
+.tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tab-pane { display: none; animation: fadeIn 0.5s; } .tab-pane.active { display: block; }
+.pane-flex { display: flex; gap: 50px; align-items: flex-start; }
+.text-col { flex: 0 0 35%; min-width: 300px; } .media-col { flex: 1; }
+.list-check { list-style: none; margin-top: 20px; } .list-check li { margin-bottom: 15px; padding-left: 20px; border-left: 4px solid var(--primary); }
+.my-image-slider, .video-box video { width: 100%; height: 400px; border-radius: 10px; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.source { text-align: right; font-style: italic; font-size: 0.9rem; color: #888; margin-top: 5px; }
 
-            try {
-                await addDoc(collection(db, "feedback"), { name: name, content: content, timestamp: Date.now() });
-                txtFeedbackContent.value = ""; txtFeedbackName.value = "";
-                alert(`Cảm ơn "${name}" đã đóng góp ý kiến!`);
-            } catch(e) { console.error(e); }
-        });
-        
-        // Load danh sách Góp ý
-        loadFeedbackList();
-    }
+/* =================================================================== */
+/* 7. TÍNH TIỀN & THÚ TỘI                                              */
+/* =================================================================== */
+.bg-gray { background: #f8f9fa; }
+.calc-wrapper { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto; }
+.calc-inputs { display: flex; flex-direction: column; gap: 15px; }
+.calc-inputs label { font-weight: bold; }
+.calc-inputs select, .calc-inputs input { padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+#btn-calculate { padding: 15px; background: var(--primary); color: #fff; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
 
-    function loadFeedbackList() {
-        if(!feedbackListDiv) return;
-        onSnapshot(query(collection(db, "feedback"), orderBy("timestamp", "desc"), limit(20)), (snap) => {
-            feedbackListDiv.innerHTML = "";
-            if (snap.empty) feedbackListDiv.innerHTML = "<div class='feedback-item'>Chưa có góp ý nào...</div>";
-            
-            snap.forEach(docSnap => {
-                const data = docSnap.data();
-                const div = document.createElement('div'); div.className = 'feedback-item';
-                let delBtn = isAdmin ? `<button class="btn-del-fb" data-id="${docSnap.id}" style="color:red;float:right;border:none;background:none;cursor:pointer;">[X]</button>` : "";
-                div.innerHTML = `
-                    ${delBtn}
-                    <span class="fb-name">${data.name}</span>
-                    <div class="fb-content">${data.content}</div>
-                    <span class="fb-time">${new Date(data.timestamp).toLocaleDateString('vi-VN')} ${new Date(data.timestamp).toLocaleTimeString('vi-VN')}</span>
-                `;
-                feedbackListDiv.appendChild(div);
-            });
-            
-            if(isAdmin) document.querySelectorAll('.btn-del-fb').forEach(b => b.addEventListener('click', async e => { if(confirm("Xóa?")) await deleteDoc(doc(db, "feedback", e.target.dataset.id)) }));
-        });
-    }
+.calc-result { margin-top: 30px; border-top: 2px dashed #ddd; padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.res-item h3 { font-size: 2rem; color: #222; } .res-item.highlight h3 { color: var(--primary); }
 
-    // --- F. THÚ TỘI ---
-    const btnPostConfess = document.getElementById('btn-post-confess');
-    const txtConfess = document.getElementById('confess-content');
-    const wallDiv = document.getElementById('confession-wall');
+/* Thú tội */
+.confession-box { max-width: 600px; margin: 0 auto 40px; text-align: center; }
+#confess-content { width: 100%; height: 120px; padding: 15px; border-radius: 8px; border: none; margin-bottom: 15px; font-family: var(--font-body); }
+#btn-post-confess { padding: 12px 40px; background: var(--secondary); border: none; font-weight: bold; cursor: pointer; color: #222; }
+.masonry-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.note-card { background: #fff; color: #333; padding: 20px; width: 280px; box-shadow: 3px 3px 10px rgba(0,0,0,0.2); transform: rotate(-2deg); font-family: 'UTM Avo', serif; font-size: 0.9rem; }
+.note-card:nth-child(even) { transform: rotate(2deg); background: #fffff0; }
 
-    if (btnPostConfess) {
-        btnPostConfess.addEventListener('click', async () => {
-            const content = txtConfess.value.trim();
-            if (content.length < 10) { alert("Viết dài hơn nhé!"); return; }
-            try { await addDoc(collection(db, "confessions"), { content: content, timestamp: Date.now() }); txtConfess.value = ""; alert("Đã gửi tâm sự!"); } catch(e) { console.error(e); }
-        });
-        loadConfessions();
-    }
+/* =================================================================== */
+/* 8. VÒNG XOAY (ĐÃ SỬA LỖI MẤT CHỮ)                                   */
+/* =================================================================== */
+.wheel-container { position: relative; width: 320px; height: 320px; margin: 0 auto; display: flex; justify-content: center; align-items: center; }
+.wheel { width: 100%; height: 100%; border-radius: 50%; border: 5px solid #fff; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 
-    function loadConfessions() {
-        if(!wallDiv) return;
-        onSnapshot(query(collection(db, "confessions"), orderBy("timestamp", "desc"), limit(8)), (snap) => {
-            wallDiv.innerHTML = "";
-            if(snap.empty) wallDiv.innerHTML = "<div class='note-card'>Chưa có tâm sự nào...</div>";
-            
-            snap.forEach(docSnap => {
-                const data = docSnap.data();
-                const div = document.createElement('div'); div.className = 'note-card';
-                let delBtn = isAdmin ? `<button class="btn-del-confess" data-id="${docSnap.id}" style="color:red;float:right;border:none;background:none;cursor:pointer;">[X]</button>` : "";
-                div.innerHTML = `${delBtn}<p>"${data.content}"</p><small style="display:block;margin-top:10px;color:#888;font-size:0.7rem">${new Date(data.timestamp).toLocaleDateString('vi-VN')}</small>`;
-                wallDiv.appendChild(div);
-            });
-            if(isAdmin) document.querySelectorAll('.btn-del-confess').forEach(b => b.addEventListener('click', async e => { if(confirm("Xóa?")) await deleteDoc(doc(db, "confessions", e.target.dataset.id)) }));
-        });
-    }
+.wheel-segment { position: absolute; width: 50%; height: 50%; background: var(--clr); transform-origin: bottom right; top: 0; left: 0; transform: rotate(calc(45deg * var(--i))); clip-path: polygon(0 0, 100% 0, 100% 100%); display: flex; justify-content: center; align-items: center; }
 
-    // --- G. QUIZ GAME ---
-    const btnStartQuiz = document.getElementById('btn-start-quiz');
-    const btnRestartQuiz = document.getElementById('btn-restart');
-    const quizPlayScreen = document.getElementById('quiz-play-screen');
-    
-    if (btnStartQuiz) {
-        const questions = [
-            { q: "Ma túy đá gây ảo giác gì?", a: ["Buồn ngủ", "Hoang tưởng", "Đói", "Sốt"], c: 1 },
-            { q: "Tàng trữ 0.1g ma túy phạt tù bao lâu?", a: ["Cảnh cáo", "1-5 năm", "10 năm", "Không sao"], c: 1 },
-            { q: "Khí N2O trong bóng cười gây hại gì?", a: ["Liệt tủy", "Trắng da", "Cười đẹp", "Tốt phổi"], c: 0 },
-            { q: "Tổng đài hỗ trợ trẻ em?", a: ["113", "114", "115", "111"], c: 3 },
-            { q: "Cỏ Mỹ là gì?", a: ["Thảo mộc tẩm độc", "Rau sạch", "Thuốc bổ", "Cỏ tự nhiên"], c: 0 }
-        ];
-        let currentQ = 0, score = 0, timer;
+/* CHỮ TRONG VÒNG XOAY - ĐÃ CĂN CHỈNH */
+.wheel-segment span { 
+    position: absolute; top: 25px; left: 25px; transform: rotate(45deg); 
+    font-weight: 800; color: #fff; font-size: 0.75rem; text-transform: uppercase; 
+    width: 100px; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); 
+}
 
-        btnStartQuiz.addEventListener('click', () => {
-            const name = document.getElementById('player-name').value.trim();
-            if(!name) { alert("Nhập tên!"); return; }
-            score = 0; currentQ = 0;
-            document.getElementById('quiz-start-screen').classList.add('hidden');
-            quizPlayScreen.classList.remove('hidden');
-            loadQuestion();
-        });
-        if(btnRestartQuiz) btnRestartQuiz.addEventListener('click', () => { document.getElementById('quiz-result-screen').classList.add('hidden'); document.getElementById('quiz-start-screen').classList.remove('hidden'); });
+.wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 30px solid #fff; z-index: 10; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); }
+#btn-spin { position: absolute; width: 80px; height: 80px; border-radius: 50%; background: #fff; color: #000; border: 5px solid #333; font-weight: 900; cursor: pointer; z-index: 5; font-size: 0.9rem; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
 
-        function loadQuestion() {
-            if (currentQ >= questions.length) { endGame(); return; }
-            const q = questions[currentQ];
-            document.getElementById('question-text').textContent = `Câu ${currentQ+1}: ${q.q}`;
-            const grid = document.getElementById('answers-grid'); grid.innerHTML = '';
-            let t = 100; const bar = document.getElementById('time-left'); clearInterval(timer);
-            timer = setInterval(() => { t -= 2; bar.style.width = t + '%'; if (t <= 0) { clearInterval(timer); handleAns(-1); } }, 200);
-            q.a.forEach((ans, i) => {
-                const btn = document.createElement('button'); btn.className = 'answer-btn'; btn.textContent = ans;
-                btn.onclick = () => handleAns(i); grid.appendChild(btn);
-            });
-        }
-        function handleAns(idx) {
-            clearInterval(timer);
-            const correct = questions[currentQ].c;
-            const btns = document.querySelectorAll('.answer-btn');
-            if (idx === correct) { score += 20; if(btns[idx]) btns[idx].classList.add('correct'); } 
-            else { if(btns[idx]) btns[idx].classList.add('wrong'); if(btns[correct]) btns[correct].classList.add('correct'); }
-            setTimeout(() => { currentQ++; loadQuestion(); }, 1000);
-        }
-        async function endGame() {
-            quizPlayScreen.classList.add('hidden');
-            document.getElementById('quiz-result-screen').classList.remove('hidden');
-            document.getElementById('final-score').textContent = score + "/100";
-            const name = document.getElementById('player-name').value || "Ẩn danh";
-            try { await addDoc(collection(db, "leaderboard"), { name: name, score: score, timestamp: Date.now() }); } catch(e) {}
-        }
-    }
-    
-    function loadLeaderboard() {
-        const lbList = document.getElementById('leaderboard-list');
-        if(!lbList) return;
-        onSnapshot(query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(5)), (snap) => {
-            lbList.innerHTML = "";
-            snap.forEach(docSnap => {
-                const d = docSnap.data();
-                let delBtn = isAdmin ? `<span class="del-score" data-id="${docSnap.id}" style="color:red;cursor:pointer;margin-left:5px;">[X]</span>` : "";
-                const li = document.createElement('li'); li.innerHTML = `<span>${d.name}</span> <span>${d.score}đ ${delBtn}</span>`;
-                lbList.appendChild(li);
-            });
-            if(isAdmin) document.querySelectorAll('.del-score').forEach(b => b.addEventListener('click', async e => { if(confirm("Xóa?")) await deleteDoc(doc(db, "leaderboard", e.target.dataset.id)) }));
-        });
-    }
-    loadLeaderboard();
+/* =================================================================== */
+/* 9. QUIZ GAME                                                        */
+/* =================================================================== */
+.bg-game { background: #e8eaf6; border-top: 5px solid var(--primary); }
+.quiz-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+.quiz-main-area { background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+.input-group { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 20px auto; }
+#player-name { padding: 15px; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; }
+#btn-start-quiz { padding: 15px; background: var(--primary); color: #fff; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; }
+#answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+.answer-btn { padding: 20px; border: 2px solid #eee; background: #fff; font-weight: 600; cursor: pointer; text-align: left; transition: 0.2s; font-size: 1rem; }
+.answer-btn:hover { border-color: var(--primary); background: #f9f9f9; }
+.answer-btn.correct { background: #d4edda; border-color: #c3e6cb; }
+.answer-btn.wrong { background: #f8d7da; border-color: #f5c6cb; }
+.leaderboard-area { background: #222; color: #fff; padding: 25px; border-radius: 10px; height: fit-content; }
+.leaderboard-area li { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #555; }
 
-    // --- H. CHATBOT & ADMIN ---
-    const chatWindow = document.getElementById('chat-window');
-    const chatToggle = document.getElementById('chat-toggle');
-    const chatClose = document.getElementById('chat-close');
-    const chatInput = document.getElementById('chat-input');
-    const chatBody = document.getElementById('chat-body');
-    const chatSend = document.getElementById('chat-send');
+/* =================================================================== */
+/* 10. HỒ SƠ BÁO CHÍ                                                   */
+/* =================================================================== */
+.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.news-card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; }
+.news-card:hover { transform: translateY(-10px); }
+.news-card img { width: 100%; height: 220px; object-fit: cover; }
+.news-info { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+.news-info h4 { font-size: 1.2rem; margin-bottom: 15px; line-height: 1.4; }
+.news-info a { margin-top: auto; color: var(--primary); font-weight: 700; text-decoration: none; text-transform: uppercase; font-size: 0.9rem; }
 
-    if (chatToggle) {
-        chatToggle.addEventListener('click', () => chatWindow.classList.remove('hidden'));
-        chatClose.addEventListener('click', () => chatWindow.classList.add('hidden'));
+/* =================================================================== */
+/* 11. GÓP Ý                                                           */
+/* =================================================================== */
+.feedback-wrapper { max-width: 900px; margin: 0 auto; }
+.feedback-form-box { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; border-top: 5px solid var(--primary); }
+#feedback-name, #feedback-text { padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: var(--font-body); font-size: 1rem; }
+#feedback-text { height: 150px; }
+#btn-send-feedback { padding: 15px; background: var(--primary); color: #fff; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+#btn-send-feedback:hover { background: #c9302c; }
 
-        const botReply = (txt) => {
-            let r = "Mình chưa hiểu. Thử hỏi 'tác hại', 'cách từ chối' nhé.";
-            const lower = txt.toLowerCase();
-            if (txt === 'admin123') { 
-                isAdmin = true; 
-                loadConfessions(); loadFeedbackList(); loadLeaderboard(); 
-                r = "🔓 <b>Đã bật Admin!</b>"; 
-            } else if (txt === 'logout') { 
-                isAdmin = false; 
-                loadConfessions(); loadFeedbackList(); loadLeaderboard(); 
-                r = "🔒 Đã thoát Admin."; 
-            }
-            else if (lower.includes('ma túy')) r = "Ma túy hủy hoại não bộ và tương lai. Đừng thử!";
-            else if (lower.includes('buồn')) r = "Đừng buồn, hãy gọi 111 để được lắng nghe nhé.";
-            const div = document.createElement('div'); div.className = 'msg bot'; div.innerHTML = r;
-            chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
-        };
-        const sendMsg = () => {
-            const val = chatInput.value.trim(); if(!val) return;
-            const div = document.createElement('div'); div.className = 'msg user'; div.textContent = val;
-            chatBody.appendChild(div); chatInput.value = ''; setTimeout(() => botReply(val), 500);
-        };
-        chatSend.addEventListener('click', sendMsg);
-        chatInput.addEventListener('keypress', e => { if(e.key==='Enter') sendMsg(); });
-    }
-});
+.feedback-list { max-height: 450px; overflow-y: auto; padding-right: 10px; }
+.feedback-item { background: #fff; padding: 20px; margin-bottom: 15px; border-left: 5px solid var(--secondary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.fb-name { font-weight: bold; color: var(--dark); display: block; margin-bottom: 5px; font-size: 1.1rem; }
+.fb-content { color: #555; font-size: 1rem; }
+.fb-time { font-size: 0.8rem; color: #999; display: block; margin-top: 8px; text-align: right; font-style: italic; }
+
+/* =================================================================== */
+/* 12. FOOTER & WIDGETS (NÚT LIÊN HỆ TO)                               */
+/* =================================================================== */
+#main-footer { background: #111; color: #999; padding: 60px 0; text-align: center; font-size: 0.95rem; }
+#main-footer a { color: #fff; text-decoration: none; border-bottom: 1px dotted #999; }
+
+/* Nút Liên Hệ To */
+.contact-btn-lg { 
+    width: 80px; height: 80px; background: var(--secondary); 
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    color: #fff; font-size: 2.2rem; box-shadow: 0 5px 20px rgba(240, 173, 78, 0.6);
+    text-decoration: none; animation: bounce 2s infinite; border: 4px solid #fff;
+}
+#floating-contact { position: fixed; bottom: 30px; left: 30px; z-index: 2000; }
+.contact-tooltip {
+    position: absolute; left: 95px; bottom: 15px; 
+    background: #fff; padding: 15px 25px; border-radius: 10px; 
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2); width: 250px;
+    opacity: 0; visibility: hidden; transition: 0.3s; transform: translateX(-10px);
+}
+#floating-contact:hover .contact-tooltip { opacity: 1; visibility: visible; transform: translateX(0); }
+.contact-tooltip strong { font-size: 1.4rem; color: var(--primary); display: block; margin-top: 5px; }
+
+/* Live User */
+#live-visitor-widget { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; z-index: 1000; pointer-events: none; }
+.blink-dot { color: #0f0; animation: blink 1s infinite; }
+
+/* Chatbot */
+#chatbot-widget { position: fixed; bottom: 30px; right: 30px; z-index: 2000; }
+.float-btn { width: 65px; height: 65px; border-radius: 50%; background: var(--primary); color: #fff; border: none; font-size: 1.8rem; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+#chat-window { position: absolute; bottom: 90px; right: 0; width: 340px; height: 500px; background: #fff; border-radius: 12px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; }
+.chat-head { padding: 15px; background: var(--primary); color: #fff; display: flex; justify-content: space-between; font-weight: bold; }
+#chat-body { flex: 1; padding: 15px; background: #f5f5f5; overflow-y: auto; }
+.chat-foot { padding: 15px; background: #fff; display: flex; border-top: 1px solid #eee; }
+#chat-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; margin-right: 10px; outline: none; }
+
+.msg { padding: 8px 12px; border-radius: 15px; margin-bottom: 8px; font-size: 0.9rem; max-width: 80%; }
+.msg.bot { background: #fff; border: 1px solid #ddd; align-self: flex-start; float: left; clear: both; }
+.msg.user { background: var(--primary); color: #fff; align-self: flex-end; float: right; clear: both; }
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .nav-links { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: #fff; flex-direction: column; justify-content: center; box-shadow: -5px 0 20px rgba(0,0,0,0.1); transform: translateX(100%); transition: 0.3s; z-index: 1001; }
+    .nav-links.is-open { transform: translateX(0); }
+    .menu-btn { display: block; }
+
+    .stat-card { flex: 0 0 100%; }
+    .pane-flex { flex-direction: column; }
+    .text-col { min-width: auto; }
+    .quiz-layout { grid-template-columns: 1fr; }
+    .calc-result { grid-template-columns: 1fr; }
+    .flip-card { height: 450px; }
+    #splash-screen h1 { font-size: 2rem; }
+    .contact-btn-lg { width: 60px; height: 60px; font-size: 1.5rem; }
+    .contact-tooltip { display: none; }
+}
+
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes blink { 50% { opacity: 0; } }
+/* --- DÁN ĐOẠN NÀY VÀO CUỐI CÙNG FILE STYLE.CSS ĐỂ HIỆN CHỮ --- */
+
+.feedback-item {
+    background-color: #ffffff !important;
+    border: 1px solid #ddd !important;
+    color: #000000 !important; /* Ép chữ màu đen */
+}
+
+.feedback-item .fb-name {
+    color: #D9534F !important; /* Tên màu đỏ cho nổi */
+    font-weight: bold !important;
+}
+
+.feedback-item .fb-content {
+    color: #333333 !important; /* Nội dung màu xám đen */
+    font-weight: normal !important;
+}
+
+.feedback-item .fb-time {
+    color: #666666 !important;
+}
+
+/* Sửa lỗi ô nhập liệu cũng bị trắng chữ */
+#feedback-name, 
+#feedback-text, 
+#confess-content {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+/* Fix lỗi thanh cuộn bị xấu */
+.feedback-list::-webkit-scrollbar {
+    width: 8px;
+}
+.feedback-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
