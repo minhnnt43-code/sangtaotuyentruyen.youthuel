@@ -1,270 +1,588 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sản phẩm tham dự cuộc thi Thiết kế sản phẩm và thông điệp tuyên truyền phòng, chống các tệ nạn xã hội</title>
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SỰ THẬT PHƠI BÀY - Sản phẩm dự thi Phòng chống Tệ nạn Xã hội</title>
 
-    <!-- Google Fonts: Tải font Montserrat cho tiêu đề -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Link CSS của SwiperJS (Thêm vào để tạo thư viện ảnh) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <!-- Fonts & Icons -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- CSS: Chứa khai báo cho font UTM Avo và toàn bộ giao diện -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+        <!-- CSS -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
 
-    <!-- MÀN HÌNH MỞ ĐẦU -->
-    <div id="splash-screen">
-        <div class="splash-content">
-            <h1>SỰ THẬT ĐÁNG BÁO ĐỘNG ĐẰNG SAU NHỮNG CON SỐ</h1>
-            <h2>Mỗi phút, tương lai của ai đó lại bị đánh cắp...</h2>
-            <div class="stats-counter-v2">
-                <div class="stat-item-v2"><span id="stat-number-1" class="big-number">0+</span><p>CA TỬ VONG MỖI NĂM DO THUỐC LÁ (THEO WHO)</p></div>
-                <div class="stat-item-v2"><span id="stat-number-2" class="big-number">0+</span><p>SINH MẠNG BỊ CƯỚP ĐI DO RƯỢU, BIA (THEO WHO)</p></div>
-                <div class="stat-item-v2"><span id="stat-number-3" class="big-number">0+</span><p>TƯƠNG LAI BỊ ĐE DỌA (ƯỚC TÍNH THEO, UNODC)</p></div>
+        <!-- 1. MÀN HÌNH CHỜ (Sẽ làm hiệu ứng chạy lên xuống ở CSS) -->
+        <div id="splash-screen">
+            <div class="splash-bg"></div>
+            <div class="splash-content">
+                <h1>SỰ THẬT ĐÁNG BÁO ĐỘNG ĐẰNG SAU NHỮNG CON SỐ</h1>
+                <h2>Mỗi phút, tương lai của ai đó lại bị đánh cắp...</h2>
+                
+                <div class="stats-counter-wrapper">
+                    <div class="stat-box">
+                        <span id="stat-number-1" class="big-number">0+</span>
+                        <p>CA TỬ VONG MỖI NĂM<br>DO THUỐC LÁ (THEO WHO)</p>
+                    </div>
+                    <div class="stat-box">
+                        <span id="stat-number-2" class="big-number">0+</span>
+                        <p>SINH MẠNG BỊ CƯỚP ĐI<br>DO RƯỢU, BIA (THEO WHO)</p>
+                    </div>
+                    <div class="stat-box">
+                        <span id="stat-number-3" class="big-number">0+</span>
+                        <p>TƯƠNG LAI BỊ ĐE DỌA<br>(ƯỚC TÍNH THEO UNODC)</p>
+                    </div>
+                </div>
+                
+                <button id="enter-button" class="btn-enter">TÌM HIỂU SỰ THẬT TẠI ĐÂY !!!</button>
             </div>
-            <button id="enter-button">TÌM HIỂU SỰ THẬT TẠI ĐÂY !!!</button>
         </div>
-    </div>
 
-    <!-- HEADER & NAV (Mặc định ẩn) -->
-    <header id="main-header" class="initially-hidden">
-        <nav class="container">
-            <div class="logo">SỰ THẬT PHƠI BÀY</div>
-            <ul class="nav-links" id="main-nav-links">
-                <li><a href="#section-concept">NHẬN DIỆN</a></li>
-                <li><a href="#section-stats">SỐ LIỆU</a></li>
-                <li><a href="#section-consequences">TÁC HẠI</a></li>
-                <li><a href="#section-solution">GIẢI PHÁP</a></li>
-                <li><a href="#section-stories">HỒ SƠ</a></li>
-                <li><a href="#section-chatbot">TRÒ CHUYỆN</a></li>
-            </ul>
-            <!-- NÚT MENU CHO THIẾT BỊ DI ĐỘNG -->
-            <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Mở menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </nav>
-    </header>
-
-    <!-- NỘI DUNG CHÍNH (Mặc định ẩn) -->
-    <main id="main-content" class="initially-hidden">
-
-        <!-- SECTION 1: NHẬN DIỆN -->
-        <section id="section-concept" class="content-section">
-             <div class="container">
-                <h2>RƯỢU, BIA, THUỐC LÁ VÀ MA TUÝ KẺ GIẾT NGƯỜI THẦM LẶNG MANG NHIỀU BỘ MẶT</h2>
-                <p class="intro-paragraph">Trong môi trường đại học, cám dỗ có thể xuất hiện dưới những hình thức tinh vi nhất. Hãy nhấn vào từng thẻ bài để vạch trần bộ mặt thật của chúng.</p>
-                <div class="card-grid">
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🚬</span><h4>THUỐC LÁ ĐIỆN TỬ "TẨM" MA TUÝ</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>THUỐC LÁ ĐIỆN TỬ "TẨM" MA TUÝ</h5><p><strong>Bản chất:</strong> Dung dịch (juice) bị pha trộn ma túy tổng hợp cực mạnh, bán ẩn danh qua mạng.</p><p><strong>Tác hại:</strong> Gây ảo giác, co giật, loạn thần chỉ sau 1-2 hơi.</p><div class="legal-box"><p>Tàng trữ chỉ từ <strong>0,1g</strong> chất này có thể bị phạt tù từ <strong>01-05 năm (quy định tại khoản 1 Điều 249 Bộ luật Hình sự)</strong>.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🍹</span><h4>"NƯỚC VUI" & MA TUÝ NGỤY TRANG</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>"NƯỚC VUI" & MA TUÝ NGỤY TRANG</h5><p><strong>Bản chất:</strong> Hỗn hợp Ketamine, MDMA,... đóng trong gói bột, chai nước bắt mắt.</p><p><strong>Tác hại:</strong> Gây sốc thuốc, trụy tim mạch, tử vong.</p><div class="legal-box"><p>Rủ rê bạn bè sử dụng có thể bị phạt tù từ <strong>07-15 năm (quy định tại Điều 258 Bộ luật Hình sự)</strong>.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🍃</span><h4>CỎ MỸ & "TEM GIẤY"</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>CỎ MỸ & "TEM GIẤY" (LSD)</h5><p><strong>Bản chất:</strong> Thảo mộc tẩm hóa chất độc hại gấp trăm lần cần sa.</p><p><strong>Tác hại:</strong> Gây ảo giác kinh hoàng ("bad trip"), dẫn đến hành vi tự sát.</p><div class="legal-box"><p>Bị cấm tuyệt đối. Một mẩu nhỏ cũng cấu thành tội phạm.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🌿</span><h4>CẦN SA TỰ NHIÊN</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>CẦN SA TỰ NHIÊN</h5><p><strong>Lầm tưởng:</strong> "An toàn", "không nghiện". <strong>SAI LẦM CHẾT NGƯỜI.</strong></p><p><strong>Tác hại:</strong> Gây suy giảm trí nhớ, "Hội chứng mất động lực".</p><div class="legal-box"><p>Sử dụng sẽ bị kỷ luật ở các mức độ tại cơ sở giáo dục đào tạo<strong> Có thể đối mặt với hình thức buộc thôi học</strong>.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">💎</span><h4>MA TÚY ĐÁ & KETAMINE</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>MA TÚY ĐÁ & KETAMINE</h5><p><strong>Bản chất:</strong> Ma túy "cứng". Đá gây hoang tưởng, Ke gây tê liệt.</p><p><strong>Tác hại:</strong> Hủy hoại não vĩnh viễn, gây thủng bàng quang.</p><div class="legal-box"><p>Tàng trữ <strong>0,1g</strong> là đủ truy cứu hình sự. (quy định tại khoản 1 Điều 249 Bộ luật Hình sự).</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🎈</span><h4>"BÓNG CƯỜI" (KHÍ N2O)</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>"BÓNG CƯỜI" (KHÍ N2O)</h5><p><strong>Sự thật:</strong> Gây thiếu oxy não, tổn thương tủy sống, liệt vĩnh viễn.</p><p><strong>Cảnh báo:</strong> Rất nhiều sinh viên đã phải ngồi xe lăn vì thứ này.</p><div class="legal-box"><p><strong>NGHIÊM CẤM</strong> dùng cho giải trí.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🍷</span><h4>RƯỢU</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>RƯỢU</h5><p><strong>Sự thật:</strong> Lạm dụng rượu gây hại gan, thận, tim mạch và hệ thần kinh.</p><p><strong>Cảnh báo:</strong> Ảnh hưởng phán đoán, dễ dẫn đến hành vi nguy hiểm, bạo lực.</p><div class="legal-box"><p>Lái xe sau khi uống rượu có thể bị phạt nặng và tước giấy phép lái xe.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">🍺</span><h4>BIA</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>BIA</h5><p><strong>Sự thật:</strong> Uống quá nhiều bia dẫn đến béo phì, bệnh gout và các vấn đề tiêu hóa.</p><p><strong>Cảnh báo:</strong> Giảm khả năng tập trung, gây nguy hiểm khi tham gia giao thông.</p><div class="legal-box"><p>Sử dụng rượu bia có trách nhiệm để bảo vệ sức khỏe và cộng đồng.</p></div></div></div></div>
-                    <div class="flip-card" tabindex="0"><div class="flip-card-inner"><div class="flip-card-front"><span class="icon">❓</span><h4>CÁC CHẤT KÍCH THÍCH KHÁC</h4><div class="flip-instruction">(Nhấn để xem)</div></div><div class="flip-card-back"><h5>CÁC CHẤT KÍCH THÍCH KHÁC</h5><p><strong>Sự thật:</strong> Nhiều chất kích thích ngụy trang dưới các hình thức khác nhau, khó nhận biết.</p><p><strong>Tác hại:</strong> Gây nghiện, tổn thương nội tạng, suy giảm sức khỏe tâm thần nghiêm trọng.</p><div class="legal-box"><p>Hãy luôn cảnh giác với bất kỳ lời mời gọi sử dụng chất lạ.</p></div></div></div></div>
-                </div>
+        <!-- 2. HEADER -->
+        <header id="main-header" class="initially-hidden">
+            <div class="container nav-container">
+                <div class="logo">SỰ THẬT PHƠI BÀY</div> <!-- Đã đổi lại tên gốc -->
+                <nav>
+                    <ul class="nav-links" id="main-nav-links">
+                        <li><a href="#section-concept">NHẬN DIỆN</a></li>
+                        <li><a href="#section-stats">SỐ LIỆU</a></li>
+                        <li><a href="#section-consequences">TÁC HẠI</a></li>
+                        <li><a href="#section-calculator">TÍNH TIỀN</a></li>
+                        <li><a href="#section-confession">TÂM SỰ</a></li>
+                        <li><a href="#section-quiz">ĐẤU TRƯỜNG</a></li>
+                        <li><a href="#section-stories">HỒ SƠ</a></li>
+                        <li><a href="#section-feedback" style="color: #D9534F;">GÓP Ý</a></li>
+                    </ul>
+                </nav>
+                <button id="mobile-menu-toggle" class="menu-btn"><i class="fas fa-bars"></i></button>
             </div>
-        </section>
+        </header>
 
-        <!-- SECTION 2: SỐ LIỆU -->
-        <section id="section-stats" class="content-section">
-             <div class="container">
-                <h2>NHỮNG CON SỐ BIẾT NÓI</h2>
-                 <div class="stats-analysis">
-                    <div class="stat-highlight"><span class="big-number">230 NGƯỜI VIỆT TỬ VONG MỖI NGÀY DO THUỐC LÁ</span><p>Mỗi ngày, Việt Nam có hơn 230 người tử vong, tương đương gần 85.000 ca mỗi năm, do các bệnh liên quan đến thuốc lá (Nguồn: Bộ Y tế/VnExpress).</p></div>
-                    <div class="stat-highlight"><span class="big-number">THIỆT HẠI KINH TẾ HƠN 100.000 TỶ ĐỒNG MỖI NĂM DO THUỐC LÁ LẬU</span><p>Thiệt hại kinh tế ước tính 108.000 tỷ VNĐ/năm, gấp 5 lần nguồn thu thuế. (Nguồn: Bộ Y tế/Báo Sức Khỏe & Đời Sống).</p></div>
-                    <div class="stat-highlight"><span class="big-text">RƯỢU, BIA GÂY RA HƠN 40.000 CA TỬ VONG</span><p>Gây ra hơn 40.000 ca tử vong mỗi năm, chiếm 7,5% tổng số ca tử vong trong số 548.000 ca tử vong/năm ở nước ta. (Nguồn: Bộ Y tế/Cục Y tế dự phòng).</p></div>
-                     <div class="stat-highlight"><span class="big-number">CÓ HƠN 360.000 NGƯỜI NGHIỆN VÀ SỬ DỤNG TRÁI PHÉP CHẤT MA TUÝ</span><p>Tính đến tháng 4/2025, toàn quốc có 369.359 người nghiện, người sử dụng trái phép chất ma túy, người nghi sử dụng trái phép chất ma tuý và người bị quản lý sau cai nghiện ma túy(Nguồn: Bộ Công an/Báo Bảo Vệ Pháp Luật).</p></div>
-                    <div class="stat-highlight"><span class="big-number">60% NGƯỜI DÙNG MA TUÝ ĐANG TRẺ HOÁ (15-25 TUỔI).</span><p>Khoảng 60% người sử dụng lần đầu nằm trong độ tuổi 15–25, có xu hướng trẻ hóa. (Nguồn: Bộ Công an/Báo Tuổi Trẻ).</p></div>
+        <main id="main-content" class="initially-hidden">
+
+            <!-- 3. NHẬN DIỆN (FULL NỘI DUNG) -->
+            <section id="section-concept" class="section-pad bg-light">
+                <div class="container">
+                    <h2 class="section-title">RƯỢU, BIA, THUỐC LÁ VÀ MA TUÝ <br>KẺ GIẾT NGƯỜI THẦM LẶNG MANG NHIỀU BỘ MẶT</h2>
+                    <p class="section-desc">Trong môi trường đại học nói riêng và xã hội nói chung, cám dỗ có thể xuất hiện dưới những hình thức tinh vi nhất. Hãy nhấn vào từng thẻ bài để vạch trần bộ mặt thật của chúng.</p>
+                    
+                    <div class="card-grid">
+                        <!-- Card 1 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🚬</div>
+                                    <h4>THUỐC LÁ ĐIỆN TỬ "TẨM" MA TUÝ</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-red">
+                                    <h5>THUỐC LÁ ĐIỆN TỬ "TẨM" MA TUÝ</h5>
+                                    <p><strong>Bản chất:</strong> Dung dịch (juice) bị pha trộn ma túy tổng hợp cực mạnh, bán ẩn danh qua mạng.</p>
+                                    <p><strong>Tác hại:</strong> Gây ảo giác, co giật, loạn thần chỉ sau 1-2 hơi.</p>
+                                    <div class="legal">Tàng trữ chỉ từ <strong>0,1g</strong> chất này có thể bị phạt tù từ <strong>01-05 năm</strong> (quy định tại khoản 1 Điều 249 Bộ luật Hình sự).</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🍹</div>
+                                    <h4>"NƯỚC VUI" & MA TUÝ NGỤY TRANG</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-yellow">
+                                    <h5>"NƯỚC VUI" & MA TUÝ NGỤY TRANG</h5>
+                                    <p><strong>Bản chất:</strong> Hỗn hợp Ketamine, MDMA... đóng trong gói bột, chai nước bắt mắt.</p>
+                                    <p><strong>Tác hại:</strong> Gây sốc thuốc, trụy tim mạch, tử vong.</p>
+                                    <div class="legal">Rủ rê bạn bè sử dụng có thể bị phạt tù từ <strong>07-15 năm</strong> (quy định tại Điều 258 Bộ luật Hình sự).</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🍃</div>
+                                    <h4>CỎ MỸ & "TEM GIẤY"</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-red">
+                                    <h5>CỎ MỸ & "TEM GIẤY" (LSD)</h5>
+                                    <p><strong>Bản chất:</strong> Thảo mộc tẩm hóa chất độc hại gấp trăm lần cần sa.</p>
+                                    <p><strong>Tác hại:</strong> Gây ảo giác kinh hoàng ("bad trip"), dẫn đến hành vi tự sát.</p>
+                                    <div class="legal">Bị cấm tuyệt đối. Một mẩu nhỏ cũng cấu thành tội phạm.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🌿</div>
+                                    <h4>CẦN SA TỰ NHIÊN</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-dark">
+                                    <h5>CẦN SA TỰ NHIÊN</h5>
+                                    <p><strong>Lầm tưởng:</strong> "An toàn", "không nghiện". <strong>SAI LẦM CHẾT NGƯỜI.</strong></p>
+                                    <p><strong>Tác hại:</strong> Gây suy giảm trí nhớ, "Hội chứng mất động lực".</p>
+                                    <div class="legal">Sử dụng sẽ bị kỷ luật ở các mức độ tại cơ sở giáo dục đào tạo. <strong>Có thể đối mặt với hình thức buộc thôi học</strong>.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">💎</div>
+                                    <h4>MA TÚY ĐÁ & KETAMINE</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-red">
+                                    <h5>MA TÚY ĐÁ & KETAMINE</h5>
+                                    <p><strong>Bản chất:</strong> Ma túy "cứng". Đá gây hoang tưởng, Ke gây tê liệt.</p>
+                                    <p><strong>Tác hại:</strong> Hủy hoại não vĩnh viễn, gây thủng bàng quang.</p>
+                                    <div class="legal">Tàng trữ <strong>0,1g</strong> là đủ truy cứu hình sự (quy định tại khoản 1 Điều 249 Bộ luật Hình sự).</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🎈</div>
+                                    <h4>"BÓNG CƯỜI" (KHÍ N2O)</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-dark">
+                                    <h5>"BÓNG CƯỜI" (KHÍ N2O)</h5>
+                                    <p><strong>Sự thật:</strong> Gây thiếu oxy não, tổn thương tủy sống, liệt vĩnh viễn.</p>
+                                    <p><strong>Cảnh báo:</strong> Rất nhiều sinh viên đã phải ngồi xe lăn vì thứ này.</p>
+                                    <div class="legal"><strong>NGHIÊM CẤM</strong> dùng cho giải trí.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 7 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🍷</div>
+                                    <h4>RƯỢU</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-yellow">
+                                    <h5>RƯỢU</h5>
+                                    <p><strong>Sự thật:</strong> Lạm dụng rượu gây hại gan, thận, tim mạch và hệ thần kinh.</p>
+                                    <p><strong>Cảnh báo:</strong> Ảnh hưởng phán đoán, dễ dẫn đến hành vi nguy hiểm, bạo lực.</p>
+                                    <div class="legal">Lái xe sau khi uống rượu có thể bị phạt nặng và tước giấy phép lái xe.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 8 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">🍺</div>
+                                    <h4>BIA</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-yellow">
+                                    <h5>BIA</h5>
+                                    <p><strong>Sự thật:</strong> Uống quá nhiều bia dẫn đến béo phì, bệnh gout và các vấn đề tiêu hóa.</p>
+                                    <p><strong>Cảnh báo:</strong> Giảm khả năng tập trung, gây nguy hiểm khi tham gia giao thông.</p>
+                                    <div class="legal">Sử dụng rượu bia có trách nhiệm để bảo vệ sức khỏe và cộng đồng.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 9 -->
+                        <div class="flip-card" tabindex="0">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="icon">❓</div>
+                                    <h4>CÁC CHẤT KÍCH THÍCH KHÁC</h4>
+                                    <div class="hint">(Nhấn để xem)</div>
+                                </div>
+                                <div class="flip-card-back bg-dark">
+                                    <h5>CÁC CHẤT KÍCH THÍCH KHÁC</h5>
+                                    <p><strong>Sự thật:</strong> Nhiều chất kích thích ngụy trang dưới các hình thức khác nhau, khó nhận biết.</p>
+                                    <p><strong>Tác hại:</strong> Gây nghiện, tổn thương nội tạng, suy giảm sức khỏe tâm thần nghiêm trọng.</p>
+                                    <div class="legal">Hãy luôn cảnh giác với bất kỳ lời mời gọi sử dụng chất lạ.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- SECTION 3: TÁC HẠI -->
-        <section id="section-consequences" class="content-section">
-            <div class="container">
-                <h2>HẬU QUẢ TOÀN DIỆN: MỘT NGƯỜI DÙNG, CẢ HỆ THỐNG GÁNH CHỊU</h2>
-                <div class="tabs-container">
-                    <div class="tab-buttons">
+            </section>
+
+            <!-- 4. SỐ LIỆU -->
+            <section id="section-stats" class="section-pad bg-dark">
+                <div class="container">
+                    <h2 class="section-title text-white">NHỮNG CON SỐ <span class="serif-accent">BIẾT NÓI</span></h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-val">230+</span>
+                            <p>NGƯỜI VIỆT TỬ VONG MỖI NGÀY DO THUỐC LÁ<br>(Nguồn: Bộ Y tế/VnExpress)</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-val">100K+</span>
+                            <p>TỶ ĐỒNG THIỆT HẠI KINH TẾ MỖI NĂM DO THUỐC LÁ LẬU<br>(Nguồn: Bộ Y tế)</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-val">40K+</span>
+                            <p>CA TỬ VONG/NĂM DO RƯỢU BIA<br>(Nguồn: Cục Y tế dự phòng)</p>
+                        </div>
+                        <!-- Hàng dưới -->
+                        <div class="stat-card">
+                            <span class="stat-val">360K+</span>
+                            <p>NGƯỜI NGHIỆN & SỬ DỤNG TRÁI PHÉP CHẤT MA TUÝ<br>(Nguồn: Bộ Công an)</p>
+                        </div>
+                        <div class="stat-card highlight">
+                            <span class="stat-val">60%</span>
+                            <p>NGƯỜI DÙNG MA TUÝ ĐANG TRẺ HOÁ (15-25 TUỔI)<br>(Nguồn: Báo Tuổi Trẻ)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 5. TÁC HẠI -->
+            <section id="section-consequences" class="section-pad">
+                <div class="container">
+                    <h2 class="section-title">HẬU QUẢ <span class="serif-accent">TOÀN DIỆN</span></h2>
+                    <p class="section-desc">Một người dùng - Cả hệ thống gánh chịu.</p>
+                    
+                    <div class="tabs-wrapper">
                         <button class="tab-btn active" data-tab="tab-self">👤 ĐỐI VỚI BẢN THÂN</button>
                         <button class="tab-btn" data-tab="tab-family">🏠 ĐỐI VỚI GIA ĐÌNH</button>
                         <button class="tab-btn" data-tab="tab-future">🎓 ĐỐI VỚI TƯƠNG LAI</button>
                     </div>
-                    <div class="tab-content">
-                        <div id="tab-self" class="tab-panel active">
-                            <h3>TRỰC QUAN HÓA SỰ TÀN PHÁ</h3>
-                            <p>Hãy kéo thanh trượt để chứng kiến sự thay đổi kinh hoàng mà ma túy và tác hại của rượu, bia gây ra với cơ thể và cuộc sống.</p>
-                            
-                            <!-- BẮT ĐẦU CẤU TRÚC SWIPERJS SLIDER -->
-                            <div class="swiper my-image-slider">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="hinhanh/minhoa1.jpg" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhhoa2.jfif" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhoa3.jpg" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhhoa4.jpg" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhhoa6.webp" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhhoa7.jfif" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhhoa7.png" alt="Hình minh hoạ về tác hại"></div>
-                                    <div class="swiper-slide"><img src="hinhanh/minhhoa8.webp" alt="Hình minh hoạ về tác hại"></div>
+
+                    <div class="tab-content-area">
+                        <!-- Tab 1 -->
+                        <div id="tab-self" class="tab-pane active">
+                            <div class="pane-flex">
+                                <div class="text-col">
+                                    <h3>TRỰC QUAN HÓA SỰ TÀN PHÁ</h3>
+                                    <p>Hãy kéo thanh trượt để chứng kiến sự thay đổi kinh hoàng mà ma túy và tác hại của rượu, bia gây ra với cơ thể và cuộc sống.</p>
+                                    <ul class="list-check">
+                                        <li><strong>Hệ hô hấp:</strong> Gây ung thư phổi, tắc nghẽn phổi mãn tính (COPD), suy hô hấp.</li>
+                                        <li><strong>Hệ tiêu hoá:</strong> Gây xơ gan, ung thư gan, viêm loét dạ dày chảy máu.</li>
+                                        <li><strong>Hệ thần kinh:</strong> Mất kiểm soát hành vi, phạm tội hình sự, hủy hoại não bộ.</li>
+                                    </ul>
                                 </div>
-                                <!-- Nút điều hướng (Mũi tên) -->
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                                <!-- Thanh cuộn -->
-                                <div class="swiper-scrollbar"></div>
+                                <div class="media-col">
+                                    <div class="swiper my-image-slider">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide"><img src="hinhanh/minhoa1.jpg"></div>
+                                            <div class="swiper-slide"><img src="hinhanh/minhhoa2.jfif"></div>
+                                            <div class="swiper-slide"><img src="hinhanh/minhoa3.jpg"></div>
+                                            <div class="swiper-slide"><img src="hinhanh/minhhoa4.jpg"></div>
+                                            <div class="swiper-slide"><img src="hinhanh/minhhoa6.webp"></div>
+                                            <div class="swiper-slide"><img src="hinhanh/minhhoa7.jfif"></div>
+                                            <div class="swiper-slide"><img src="hinhanh/minhhoa8.webp"></div>
+                                        </div>
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- KẾT THÚC CẤU TRÚC SWIPERJS SLIDER -->
-
-                             <ul>
-                                <li><strong>Hệ hô hấp (Do thuốc lá hoặc thuốc lá điện tử):</strong> Gây ung thư phổi, tắc nghẽn phổi mãn tính (COPD), và suy hô hấp.</li>
-                                <li><strong>Hệ tiêu hoá (Do rượu, bia):</strong> Gây xơ gan, ung thư gan, và viêm loét dạ dày chảy máu.</li>
-                                <li><strong>Hệ luỵ cho xã hội (Do ma tuý):</strong> Dẫn đến mất kiểm soát hành vi, phạm tội hình sự, và hủy hoại gia đình.</li>
-                            </ul>
                         </div>
                         
-                        <div id="tab-family" class="tab-panel">
-                             <h3>NGỌN LỬA DỮ THIÊU RỤI TỔ ẤM</h3>
-                             <p>Chứng kiến hình ảnh một gia đình từ hạnh phúc đến tan vỡ.</p>
-                             <div class="video-container">
-                                 <video autoplay loop muted playsinline poster="hinhanh/giadinh.mp4">
-                                     <source src="hinhanh/giadinh.mp4" type="video/mp4">
-                                     Trình duyệt của bạn không hỗ trợ thẻ video.
-                                 </video>
-                             </div>
-                             <p class="video-source">Nguồn: VTV1 (Video đang tải vui lòng chờ trong giây lát...)</p>
-                             <ul>
-                                <li><strong>Kinh tế kiệt quệ:</strong> Gia đình phải bán đi tài sản cuối cùng để chạy theo chi phí cai nghiện, điều trị bệnh tật (ung thư, xơ gan), hoặc bù đắp thiệt hại do tai nạn/phạm pháp.</li>
-                                <li><strong>Hạnh phúc tan vỡ:</strong> Bạo lực gia đình (do rượu bia, ma túy), cãi vã liên miên, và sự mất niềm tin dẫn đến ly hôn và làm tổn thương tâm lý trẻ em.</li>
-                                <li><strong>Nỗi đau rất lớn của Gia đình & Xã hội:</strong> Cha mẹ phải chứng kiến con cái hoặc người thân đi từ hy vọng đến sự thất vọng, bất lực, và gánh chịu sự kỳ thị xã hội.</li>
-                            </ul>
+                        <!-- Tab 2 -->
+                        <div id="tab-family" class="tab-pane">
+                            <div class="pane-flex">
+                                <div class="text-col">
+                                    <h3>NGỌN LỬA DỮ THIÊU RỤI TỔ ẤM</h3>
+                                    <ul class="list-check">
+                                        <li><strong>Kinh tế kiệt quệ:</strong> Bán nhà, bán đất để trả nợ và chi phí cai nghiện.</li>
+                                        <li><strong>Hạnh phúc tan vỡ:</strong> Bạo lực gia đình, cãi vã liên miên, ly hôn.</li>
+                                        <li><strong>Nỗi đau tinh thần:</strong> Cha mẹ già tuyệt vọng, con cái bơ vơ.</li>
+                                    </ul>
+                                </div>
+                                <div class="media-col">
+                                    <div class="video-box">
+                                        <video controls poster="hinhanh/giadinh.mp4">
+                                            <source src="hinhanh/giadinh.mp4" type="video/mp4">
+                                        </video>
+                                        <p class="source">Nguồn: VTV1</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div id="tab-future" class="tab-panel">
-                             <h3>BẢN ÁN VÔ HÌNH CHO TƯƠNG LAI</h3>
-                             <p>Chứng kiến một tương lai từ tươi sáng trở nên mờ mịt.</p>
-                             <div class="video-container">
-                                 <video autoplay loop muted playsinline poster="hinhanh/video1.mp4">
-                                     <source src="hinhanh/video1.mp4" type="video/mp4">
-                                     Trình duyệt của bạn không hỗ trợ thẻ video.
-                                 </video>
-                             </div>
-                             <p class="video-source">Nguồn: VTV1 (Video đang tải vui lòng chờ trong giây lát...)</p>
-                            <ul>
-                                <li><strong>Con đường học vấn có thể bị chấm dứt:</strong> Việc sử dụng chất hoặc phạm pháp dẫn đến kỷ luật cao nhất: buộc thôi học hoặc mất cơ hội vào các trường đại học/nghề nghiệp uy tín.</li>
-                                <li><strong>Cánh cửa sự nghiệp bị đóng sập:</strong> Sử dụng chất gây mất tập trung, giảm năng suất lao động, dẫn đến bị sa thải và khó khăn khi tìm kiếm việc làm mới.</li>
-                                <li><strong>"Vết sẹo" pháo lý:</strong> Hành vi vi phạm luật (lái xe khi say rượu, tàng trữ ma túy) dẫn đến bản án tù hoặc tiền án, tạo rào cản khổng lồ cản trở hội nhập xã hội.</li>
+                        <!-- Tab 3 -->
+                        <div id="tab-future" class="tab-pane">
+                            <div class="pane-flex">
+                                <div class="text-col">
+                                    <h3>BẢN ÁN VÔ HÌNH CHO TƯƠNG LAI</h3>
+                                    <ul class="list-check">
+                                        <li><strong>Học vấn chấm dứt:</strong> Bị buộc thôi học, mất cơ hội tốt nghiệp đại học.</li>
+                                        <li><strong>Sự nghiệp tiêu tan:</strong> Bị sa thải, không ai tuyển dụng người có tiền án.</li>
+                                        <li><strong>Vết sẹo pháp lý:</strong> Bản án tù, tiền án tiền sự cản trở hội nhập.</li>
+                                    </ul>
+                                </div>
+                                <div class="media-col">
+                                    <div class="video-box">
+                                        <video controls poster="hinhanh/video1.mp4">
+                                            <source src="hinhanh/video1.mp4" type="video/mp4">
+                                        </video>
+                                        <p class="source">Nguồn: VTV1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. TÍNH TIỀN -->
+            <section id="section-calculator" class="section-pad bg-gray">
+                <div class="container">
+                    <h2 class="section-title">BẠN ĐANG <span class="serif-accent">ĐỐT</span> BAO NHIÊU TIỀN?</h2>
+                    <p class="section-desc">Hãy thử tính xem nếu không dùng chất kích thích, bạn đã giàu cỡ nào.</p>
+                    
+                    <div class="calc-wrapper">
+                        <div class="calc-inputs">
+                            <label>Loại chất dùng:</label>
+                            <select id="calc-type">
+                                <option value="20000">Thuốc lá (20k/bao)</option>
+                                <option value="50000">Rượu bia (50k/lần)</option>
+                                <option value="100000">Vape/Pod (100k/tuần)</option>
+                                <option value="500000">Bóng cười (500k/lần)</option>
+                            </select>
+                            <label>Số lần/tuần:</label>
+                            <input type="number" id="calc-freq" value="3" min="1">
+                            <button id="btn-calculate">TÍNH NGAY</button>
+                        </div>
+                        <div class="calc-result hidden" id="calc-result-box">
+                            <div class="res-item">
+                                <p>1 Năm bạn đốt:</p>
+                                <h3 id="res-1year">0 đ</h3>
+                                <span>= 1 Laptop Xịn 💻</span>
+                            </div>
+                            <div class="res-item highlight">
+                                <p>10 Năm bạn đốt:</p>
+                                <h3 id="res-10year">0 đ</h3>
+                                <span>= 1 Ô tô VinFast 🚗</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. THÚ TỘI -->
+            <section id="section-confession" class="section-pad bg-dark">
+                <div class="container">
+                    <h2 class="section-title text-white">GÓC <span class="serif-accent">TÂM SỰ</span></h2>
+                    <p class="section-desc text-white">Nơi trải lòng ẩn danh. Bạn không cô đơn.</p>
+                    
+                    <div class="confession-box">
+                        <textarea id="confess-content" placeholder="Viết tâm sự của bạn tại đây (Hoàn toàn ẩn danh)..."></textarea>
+                        <button id="btn-post-confess">GỬI TÂM SỰ 🕊️</button>
+                    </div>
+                    <div id="confession-wall" class="masonry-grid">
+                        <div class="note-card">Đang tải câu chuyện...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. ĐẤU TRƯỜNG QUIZ -->
+            <section id="section-quiz" class="section-pad bg-game">
+                <div class="container">
+                    <h2 class="section-title">ĐẤU TRƯỜNG <span class="serif-accent">SINH TỒN</span></h2>
+                    <p class="section-desc">Kiến thức là áo giáp bảo vệ bạn. Thử thách ngay!</p>
+                    
+                    <div class="quiz-layout">
+                        <div class="quiz-main-area">
+                            <div id="quiz-start-screen">
+                                <div class="icon-game"><i class="fas fa-gamepad"></i></div>
+                                <h3>10 CÂU HỎI - 1 MẠNG</h3>
+                                <div class="input-group">
+                                    <input type="text" id="player-name" placeholder="Nhập tên chiến binh...">
+                                    <button id="btn-start-quiz">VÀO GAME</button>
+                                </div>
+                            </div>
+                            
+                            <div id="quiz-play-screen" class="hidden">
+                                <div class="timer-bar"><div id="time-left"></div></div>
+                                <h3 id="question-text">Câu hỏi...</h3>
+                                <div id="answers-grid"></div>
+                            </div>
+
+                            <div id="quiz-result-screen" class="hidden">
+                                <h3>KẾT QUẢ</h3>
+                                <div id="final-score">0/100</div>
+                                <button id="btn-restart">CHƠI LẠI</button>
+                            </div>
+                        </div>
+
+                        <div class="leaderboard-area">
+                            <h3>🏆 BẢNG VÀNG</h3>
+                            <ul id="leaderboard-list">
+                                <li>Đang tải...</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- SECTION 4: GIẢI PHÁP -->
-        <section id="section-solution" class="content-section">
-             <div class="container">
-                <h2>BẠN MẠNH HƠN BẠN NGHĨ: KỸ NĂNG PHÒNG VỆ</h2>
-                <div class="skills-container">
-                    <div class="skill-item">
-                        <img src="hinhanh/tuyentruyen1.jpg" alt="Hình ảnh minh hoạ" class="skill-image">
-                        <div class="skill-content"><h3>NÓI "KHÔNG" QUYẾT ĐOÁN</h3><p>Đừng sợ mất lòng. Hãy nói: "Không, cảm ơn. Tớ không hứng thú."</p></div>
-                    </div>
-                    <div class="skill-item">
-                         <img src="hinhanh/tuyentruyen2.jpg" alt="Hình ảnh minh hoạ" class="skill-image">
-                        <div class="skill-content"><h3>GIẢI TỎA STRESS LÀNH MẠNH</h3><p>Thể thao, đọc sách, chia sẻ với bạn bè thay vì tìm đến chất kích thích.</p></div>
-                    </div>
-                    <div class="skill-item">
-                         <img src="hinhanh/tuyentruyen3.jpg" alt="Hình ảnh minh hoạ" class="skill-image">
-                        <div class="skill-content"><h3>TÌM KIẾM SỰ GIÚP ĐỠ</h3><p>Cơ quan chức năng hoặc gia đình, thầy cô, bạn bè luôn sẵn sàng lắng nghe bạn.</p></div>
+            <!-- 9. HỒ SƠ BÁO CHÍ -->
+            <section id="section-stories" class="section-pad bg-light">
+                <div class="container">
+                    <h2 class="section-title">HỒ SƠ TỘI ÁC & <span class="serif-accent">SỰ THẬT</span></h2>
+                    <p class="section-desc">Những câu chuyện có thật và cái nhìn toàn cảnh về vấn nạn.</p>
+                    
+                    <div class="news-grid">
+                        <article class="news-card">
+                            <img src="hinhanh/baibao1.jpg">
+                            <div class="news-info">
+                                <h4>Ngáo đá chém mẹ đâm cha, tội ác thảm họa</h4>
+                                <p>Vụ án giết người do hung thủ lên cơn nghiện...</p>
+                                <a href="https://laodong.vn/thoi-su/ngao-da-chem-me-dam-cha-toi-ac-do-ma-tuy-da-den-muc-tham-hoa-1173713.ldo" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao2.jfif">
+                            <div class="news-info">
+                                <h4>Tội ác man rợ do "ngáo đá": Làm sao ngăn chặn?</h4>
+                                <p>Người sử dụng ma túy đá trong thời gian dài...</p>
+                                <a href="https://vov2.vov.vn/doi-song-xa-hoi/toi-ac-man-ro-do-ngao-da-lam-so-ngan-chan-41252.vov2" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao3.jpg">
+                            <div class="news-info">
+                                <h4>Nam sinh viên trộm xe, đánh chết người</h4>
+                                <p>Ma Vũ Duy trộm 1 xe máy, 2 ô tô sau khi chơi đá...</p>
+                                <a href="https://thanhnien.vn/nam-sinh-vien-ngao-da-trom-1-xe-may-2-o-to-va-danh-chet-nguoi-185241123102630082.htm" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao4.webp">
+                            <div class="news-info">
+                                <h4>Nguy kịch vì 'bóng cười, nước biển'</h4>
+                                <p>Bệnh viện TP.HCM liên tiếp nhận bệnh nhân trẻ...</p>
+                                <a href="https://tuoitre.vn/nguy-kich-vi-bong-cuoi-nuoc-bien-20250330082156143.htm" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao5.jpg">
+                            <div class="news-info">
+                                <h4>Hít 20 quả bóng cười, nam thanh niên liệt người</h4>
+                                <p>Tự mua bình khí về nhà bơm bóng cười suốt 6 tháng...</p>
+                                <a href="https://laodong.vn/suc-khoe/hit-20-qua-bong-cuoi-mot-luc-nam-thanh-nien-te-liet-nguoi-633898.ldo" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao6.jpg.webp">
+                            <div class="news-info">
+                                <h4>Đi như bò mới đẻ vì bóng cười</h4>
+                                <p>Bác sĩ chia sẻ về các ca liệt nửa người do khí N2O...</p>
+                                <a href="https://cafebiz.vn/bac-si-tung-chua-gan-10-ca-nhap-vien-vi-bong-cuoi-co-nguoi-di-nhu-bo-moi-de-khong-dieu-tri-kip-se-bi-liet-nua-nguoi-20201112133940975.chn" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao7.webp">
+                            <div class="news-info">
+                                <h4>Cô gái ngưng tim sau 2 năm hút Vape</h4>
+                                <p>Nữ bệnh nhân 25 tuổi đột ngột ngưng tim...</p>
+                                <a href="https://suckhoedoisong.vn/co-gai-ngung-tim-sau-2-nam-su-dung-thuoc-la-dien-tu-169250820094800006.htm" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao8.webp">
+                            <div class="news-info">
+                                <h4>"Ảo giác, ngáo đá" sau khi hút thuốc lá điện tử</h4>
+                                <p>Nhiều vụ việc người trẻ bị ảo giác nặng nề...</p>
+                                <a href="https://vtv.vn/xa-hoi/ao-giac-ngao-da-sau-khi-hut-thuoc-la-dien-tu-20221030183323604.htm" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="news-card">
+                            <img src="hinhanh/baibao9.jpg">
+                            <div class="news-info">
+                                <h4>Con đường dẫn đến nghiện nicotine</h4>
+                                <p>Thanh niên hút thuốc lá điện tử thay vì cai thuốc...</p>
+                                <a href="https://bvtwqn.vn/tin-tuc/thanh-nien-hut-thuoc-la-dien-tu-nhu-mot-con-duong-dan-den-ng.html" target="_blank">Đọc tiếp &rarr;</a>
+                            </div>
+                        </article>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- SECTION 5: HỒ SƠ TỘI ÁC & SỰ THẬT -->
-        <section id="section-stories" class="content-section">
-             <div class="container">
-                <h2>HỒ SƠ TỘI ÁC & SỰ THẬT</h2>
-                <p class="intro-paragraph">Những câu chuyện có thật và cái nhìn toàn cảnh về vấn nạn về tác hại của bia, rượu, thuốc lá điện tử, truyền thống và ma túy tại Việt Nam.</p>
-                
-                <div class="stories-grid">
-                    <article class="story-card"><img src="hinhanh/baibao1.jpg" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Ngáo đá chém mẹ đâm cha, tội ác do ma túy đã đến mức thảm họa</h4><p>Những vụ án giết người do hung thủ lên cơn nghiện ma túy...</p><a href="https://laodong.vn/thoi-su/ngao-da-chem-me-dam-cha-toi-ac-do-ma-tuy-da-den-muc-tham-hoa-1173713.ldo" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao2.jfif" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Tội ác man rợ do "ngáo đá": Làm sao ngăn chặn?</h4><p>Người sử dụng ma túy đá, nhất là dùng trong thời gian dài...</p><a href="https://vov2.vov.vn/doi-song-xa-hoi/toi-ac-man-ro-do-ngao-da-lam-so-ngan-chan-41252.vov2" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao3.jpg" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Nam sinh viên 'ngáo đá' trộm 1 xe máy, 2 ô tô và đánh chết người</h4><p>Sau khi sử dụng ma túy đá, Ma Vũ Duy trộm 1 xe máy, 2 ô tô và...</p><a href="https://thanhnien.vn/nam-sinh-vien-ngao-da-trom-1-xe-may-2-o-to-va-danh-chet-nguoi-185241123102630082.htm" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao4.webp" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Nguy kịch vì 'bóng cười, nước biển'</h4><p>Chỉ trong một thời gian ngắn, các bệnh viện tại TP.HCM liên tiếp nhận nhiều bệnh nhân trẻ...</p><a href="https://tuoitre.vn/nguy-kich-vi-bong-cuoi-nuoc-bien-20250330082156143.htm" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao5.jpg" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Hít 20 quả bóng cười một lúc, nam thanh niên tê liệt người</h4><p>Suốt 6 tháng qua, nam thanh niên 21 tuổi tự mua bình khí về nhà bơm bóng cười...</p><a href="https://laodong.vn/suc-khoe/hit-20-qua-bong-cuoi-mot-luc-nam-thanh-nien-te-liet-nguoi-633898.ldo" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao6.jpg.webp" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Bác sĩ từng chữa gần 10 ca nhập viện vì bóng cười: “Có người đi như bò mới đẻ, không điều trị kịp sẽ bị liệt nửa người”</h4><p>Từng trực tiếp điều trị cho gần 10 thanh niên nhập viện vì hút bóng cười...</p><a href="https://cafebiz.vn/bac-si-tung-chua-gan-10-ca-nhap-vien-vi-bong-cuoi-co-nguoi-di-nhu-bo-moi-de-khong-dieu-tri-kip-se-bi-liet-nua-nguoi-20201112133940975.chn" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao7.webp" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Cô gái ngưng tim sau 2 năm sử dụng thuốc lá điện tử</h4><p>Sau 2 năm thường xuyên sử dụng thuốc lá điện tử, nữ bệnh nhân 25 tuổi đột ngột...</p><a href="https://suckhoedoisong.vn/co-gai-ngung-tim-sau-2-nam-su-dung-thuoc-la-dien-tu-169250820094800006.htm" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao8.webp" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>"Ảo giác, ngáo đá" sau khi hút thuốc lá điện tử</h4><p>Đã có không ít vụ việc người trẻ bị "ảo giác, ngáo đá" sau khi hút thuốc lá điện tử...</p><a href="https://vtv.vn/xa-hoi/ao-giac-ngao-da-sau-khi-hut-thuoc-la-dien-tu-20221030183323604.htm" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                    <article class="story-card"><img src="hinhanh/baibao9.jpg" alt="Hình ảnh minh hoạ" class="story-image"><div class="story-content"><h4>Thanh niên hút thuốc lá điện tử như “một con đường dẫn đến nghiện nicotine, thay vì thoát khỏi nó”</h4><p>Kết quả của một nghiên cứu gần đây cho thấy có một số lượng lớn thanh niên sử dụng thuốc lá điện tử chưa...</p><a href="https://bvtwqn.vn/tin-tuc/thanh-nien-hut-thuoc-la-dien-tu-nhu-mot-con-duong-dan-den-ng.html" target="_blank" class="read-more-btn">Đọc thêm &rarr;</a></div></article>
-                </div>
-            </div>
-        </section>
+            <!-- 10. GÓP Ý (SECTION LỚN + HIỂN THỊ DANH SÁCH) -->
+            <section id="section-feedback" class="section-pad bg-gray">
+                <div class="container">
+                    <h2 class="section-title">GÓP Ý <span class="serif-accent">XÂY DỰNG</span></h2>
+                    <p class="section-desc">Ý kiến của bạn giúp chúng tôi hoàn thiện hơn. Nếu không nhập tên, hệ thống chọn cho bạn một biệt danh dễ thương!</p>
+                    
+                    <div class="feedback-wrapper">
+                        <!-- Form nhập -->
+                        <div class="feedback-form-box">
+                            <input type="text" id="feedback-name" placeholder="Tên của bạn (Không bắt buộc)">
+                            <textarea id="feedback-text" placeholder="Nhập ý kiến đóng góp của bạn..."></textarea>
+                            <button id="btn-send-feedback">GỬI Ý KIẾN</button>
+                        </div>
 
-        <!-- SECTION 6: CHATBOT -->
-        <section id="section-chatbot" class="content-section">
-             <div class="container">
-                <h2>NGƯỜI BẠN ĐỒNG HÀNH SỐ</h2>
-                <p class="intro-paragraph">Đừng giữ những băn khoăn một mình. Hãy hỏi tôi, tôi luôn ở đây lắng nghe.</p>
-                <div id="chat-window">
-                    <div id="chat-messages"><div class="chat-message bot">Chào bạn! Tôi là trợ lý ảo của hệ thống. Bạn cần tư vấn gì về phòng chống ma túy hay đang cảm thấy áp lực?</div></div>
-                    <div id="quick-reply-container">
-                        <button class="quick-reply-btn">Tác hại của ma túy</button>
-                        <button class="quick-reply-btn">Làm sao để từ chối?</button>
-                        <button class="quick-reply-btn">Tôi đang cảm thấy stress</button>
-                        <button class="quick-reply-btn">Tác hại của rượu bia</button>
-                    </div>
-                    <div id="chat-input-container">
-                        <input type="text" id="chat-input" placeholder="Nhập câu hỏi của bạn..."><button id="chat-send">Gửi</button>
+                        <!-- Danh sách hiển thị -->
+                        <div id="feedback-list-container" class="feedback-list">
+                            <!-- JS sẽ load góp ý vào đây -->
+                            <div class="feedback-item">Đang tải các góp ý...</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <!-- FOOTER -->
-    <footer id="main-footer" class="initially-hidden">
-        <div class="container">
-            <p><strong>SẢN PHẨM DỰ THI CUỘC THI THIẾT KẾ SẢN PHẨM & THÔNG ĐIỆP TUYÊN TRUYỀN PHÒNG, CHỐNG CÁC TỆ NẠN XÃ HỘI</strong></p>
-            <p>Thực hiện bởi: 
-                <a href="https://fb.com/lamquocminh18" target="_blank">Lâm Quốc Minh</a> & 
-                <a href="https://www.facebook.com/nhatmy.nguyen.1237" target="_blank">Nguyễn Nhật My</a>
-            </p>
-            <p>Sinh viên Trường Đại học Kinh tế - Luật, ĐHQG-HCM</p>
+        </main>
+
+        <!-- FOOTER -->
+        <footer id="main-footer" class="initially-hidden">
+            <div class="container">
+                <p><strong>SẢN PHẨM DỰ THI CUỘC THI THIẾT KẾ SẢN PHẨM & THÔNG ĐIỆP TUYÊN TRUYỀN PHÒNG, CHỐNG CÁC TỆ NẠN XÃ HỘI</strong></p>
+                <div class="authors">
+                    <p>Thực hiện bởi: <a href="https://fb.com/lamquocminh18" target="_blank">Lâm Quốc Minh</a> & <a href="https://www.facebook.com/nhatmy.nguyen.1237" target="_blank">Nguyễn Nhật My</a></p>
+                    <p>Sinh viên Trường Đại học Kinh tế - Luật, ĐHQG-HCM</p>
+                </div>
+                <div id="visitor-count" style="margin-top:20px; color: #F0AD4E; font-weight:bold; letter-spacing: 1px;">Lượt truy cập: Đang tải...</div>
+            </div>
+        </footer>
+
+        <!-- WIDGETS -->
+        <div id="floating-contact" class="initially-hidden">
+            <div class="contact-tooltip">
+                <p>Mọi thắc mắc xin liên hệ: <strong>0899.012.608</strong></p>
+                <p>Lâm Quốc Minh (thực hiện chính trang này)</p>
+            </div>
+            <a href="tel:0899012608" class="contact-btn-lg">
+                <i class="fas fa-phone-alt"></i>
+            </a>
         </div>
-    </footer>
 
-    <!-- NÚT LIÊN HỆ NỔI -->
-    <div id="floating-contact" class="initially-hidden">
-        <div class="contact-tooltip">
-            <p>Mọi thắc mắc về trang web và nội dung xin liên hệ:</p>
-            <p><strong>Lâm Quốc Minh</strong></p>
-            <p class="highlight-phone">0899.012.608</p>
+        <div id="chatbot-widget">
+            <button id="chat-toggle" class="float-btn chat"><i class="fas fa-comment-dots"></i></button>
+            <div id="chat-window" class="hidden">
+                <div class="chat-head">TRỢ LÝ AI <span id="chat-close">&times;</span></div>
+                <div id="chat-body"><div class="msg bot">Chào bạn! Cần giúp gì không?</div></div>
+                <div class="chat-foot">
+                    <input type="text" id="chat-input" placeholder="Nhập tin nhắn...">
+                    <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
         </div>
-        <a href="tel:0899012608" class="contact-btn" aria-label="Gọi điện liên hệ">
-            <!-- ĐÃ SỬA LẠI CLASS CHO ĐÚNG -->
-            <img src="hinhanh/iconphone.png" alt="Gọi điện" class="phone-icon-img">
-        </a>
-    </div>
 
-    <!-- Link JS của SwiperJS (Thêm vào để khởi tạo thư viện ảnh) -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="app.js"></script>
-</body>
-</html>
-
-
-
-
-
-
-
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script type="module" src="app.js"></script>
+    </body>
+    </html>
