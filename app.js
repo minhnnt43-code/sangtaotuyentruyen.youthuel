@@ -145,25 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- D. VÒNG XOAY SỐ PHẬN ---
-    const btnSpin = document.getElementById('btn-spin');
-    const wheel = document.getElementById('wheel');
-    const wheelResult = document.getElementById('wheel-result');
-    const outcomeText = document.getElementById('wheel-outcome');
-    if (btnSpin) {
-        btnSpin.addEventListener('click', () => {
-            const deg = Math.floor(3000 + Math.random() * 2000); 
-            wheel.style.transform = `rotate(${deg}deg)`;
-            btnSpin.disabled = true;
-            setTimeout(() => {
-                wheelResult.classList.remove('hidden');
-                const outcomes = ["Tù Tội", "Mất Trí", "Cô Độc", "Bệnh Tật", "Nợ Nần", "Tai Nạn", "Hối Hận"];
-                outcomeText.textContent = outcomes[Math.floor(Math.random() * outcomes.length)] + "!";
-                btnSpin.disabled = false;
-            }, 4000);
-        });
-    }
-
     // --- E. GÓP Ý (TÊN CUTE & FIREBASE) ---
     const btnSendFeedback = document.getElementById('btn-send-feedback');
     const txtFeedbackName = document.getElementById('feedback-name');
@@ -355,3 +336,4 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.addEventListener('keypress', e => { if(e.key==='Enter') sendMsg(); });
     }
 });
+
